@@ -108,10 +108,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
-<<<<<<< HEAD
-
-=======
->>>>>>> f12975a1258484e4956e8b65d785d038c499430e
 				booksHomeLayout.getChildren().addAll(
 						addStockButton, 
 						stocksManagementToolButton, 
@@ -121,13 +117,11 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 						promotionsManagementButton, 
 						usedGoodsResaleButton, 
 						itemRentalButton);
-<<<<<<< HEAD
 
 				booksHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
 
-=======
 				booksHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
->>>>>>> f12975a1258484e4956e8b65d785d038c499430e
+
 				booksHomeScene = new Scene(booksHomeLayout, 500, 500);
 				window.setScene(booksHomeScene);
 				storeType = "Books";

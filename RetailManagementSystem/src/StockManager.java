@@ -9,8 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import model.Item;
+import java.util.ArrayList;
 
 public class StockManager {
+		
+		ArrayList<Item> stocks;
 		
 		public StockManager()
 		{
