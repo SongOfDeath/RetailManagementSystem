@@ -20,7 +20,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	{
 		launch(args);
 		StockManager mg = new StockManager();
-		mg.addScore(5);
+		mg.addData("mahir özer");
 		
 	}
 	
@@ -36,8 +36,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//////////////////////////////////
 		button = new Button("Submit");
 		button.setOnAction(this);
-		addStockButton = new Button("Add Stock");
-		button.setOnAction(this);
+		//addStockButton = new Button("Add Stock");
+		//button.setOnAction(this);
 		stocksManagementToolButton = new Button("Stocks Management Tool");
 		stocksManagementToolButton.setOnAction(this);
 		takeCustomerFeedbackButton = new Button("Take Customer Feedback");
@@ -94,7 +94,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				electronicsHomeLayout = new VBox(10);
 				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
-				electronicsHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
+				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
 				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
 			}
@@ -102,7 +102,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
-				booksHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
+				booksHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
 				booksHomeScene = new Scene(booksHomeLayout, 500, 500);
 				window.setScene(booksHomeScene);
 			}
@@ -110,7 +110,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				clothesHomeLayout = new VBox(10);
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
-				clothesHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
+				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
 				clothesHomeScene = new Scene(clothesHomeLayout, 500, 500);
 				window.setScene(clothesHomeScene);
 			}
