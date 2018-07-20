@@ -17,7 +17,7 @@ public class StockManager {
 			
 		}
 		
-		public void addScore(int score)
+		public void addScore(int bookISBN)
 		{
 			try {
 				FileWriter writer = new FileWriter("stocks.txt", true);
@@ -25,9 +25,9 @@ public class StockManager {
 
 				//bufferedWriter.write("sülo");
 				//bufferedWriter.append("asdas");
-				bufferedWriter.write("Name: Anonymous, Score: ");
+				bufferedWriter.write("Name: BookName, BookISBN: 432543");
 				bufferedWriter.newLine();
-				bufferedWriter.write("" + score);
+				bufferedWriter.write("" + bookISBN);
 				bufferedWriter.newLine();
 				bufferedWriter.close();
 			} catch (IOException e) {
