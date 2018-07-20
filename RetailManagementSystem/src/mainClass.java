@@ -6,21 +6,26 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.*;
 import javafx.geometry.*;
-public class mainClass extends Application implements EventHandler<ActionEvent>{
+public class mainClass extends Application implements EventHandler<ActionEvent> {
 	
 	Stage window;
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
+	String storeType = "Electronics";
+	//BUTTONS
 	Button button, addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
+	
+	//LAYOUTS
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
+	VBox booksStockManagementLayout;
 	TextField usernameField = new TextField("Username");
-	TextField passwordField = new TextField("Password");
+	PasswordField  passwordField = new PasswordField();// ("Password");
 	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
 	
 	public static void main(String[] args)
 	{
 		launch(args);
 		StockManager mg = new StockManager();
-		mg.addScore(5);
+		mg.addData("mahir özer");
 		
 	}
 	
@@ -36,8 +41,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		//////////////////////////////////
 		button = new Button("Submit");
 		button.setOnAction(this);
-		addStockButton = new Button("Add Stock");
-		button.setOnAction(this);
+		//addStockButton = new Button("Add Stock");
+		//button.setOnAction(this);
 		stocksManagementToolButton = new Button("Stocks Management Tool");
 		stocksManagementToolButton.setOnAction(this);
 		takeCustomerFeedbackButton = new Button("Take Customer Feedback");
@@ -94,14 +99,16 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 			{
 				electronicsHomeLayout = new VBox(10);
 				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
-				electronicsHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
+				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
 				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
+				storeType = "Electronics";
 			}
-			else if(shopTypeChoiceBox.getValue()=="Books")
+			else if (shopTypeChoiceBox.getValue() == "Books")
 			{
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
+<<<<<<< HEAD
 				booksHomeLayout.getChildren().addAll(
 						addStockButton, 
 						stocksManagementToolButton, 
@@ -111,17 +118,27 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 						promotionsManagementButton, 
 						usedGoodsResaleButton, 
 						itemRentalButton);
+=======
+				booksHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
+>>>>>>> d902c4629522a2b30db93323cc6628a198a7e17a
 				booksHomeScene = new Scene(booksHomeLayout, 500, 500);
 				window.setScene(booksHomeScene);
+				storeType = "Books";
 			}
 			else if(shopTypeChoiceBox.getValue()=="Clothes")
 			{
 				clothesHomeLayout = new VBox(10);
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
-				clothesHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
+				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
 				clothesHomeScene = new Scene(clothesHomeLayout, 500, 500);
 				window.setScene(clothesHomeScene);
+				storeType = "Clothes";
 			}
+		}
+		
+		if(event.getSource()==stocksManagementToolButton)
+		{
+			
 		}
 	}
 	
