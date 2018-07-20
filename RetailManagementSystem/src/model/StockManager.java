@@ -24,7 +24,7 @@ public class StockManager {
 		public void addData(String dataString)
 		{
 			try {
-				FileWriter writer = new FileWriter("stocks.txt", true);
+				FileWriter writer = new FileWriter("data/stocks.txt", true);
 				BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
 				//bufferedWriter.write("sülo");
@@ -47,7 +47,7 @@ public class StockManager {
 				///READ/////////////////////////
 				ArrayList<Integer> allScores = new ArrayList<Integer>();
 				ArrayList<String> allBooks = new ArrayList<String>();
-				BufferedReader br = new BufferedReader(new FileReader("stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
 				String line = br.readLine();
 				line = br.readLine();
 				allScores.add(Integer.parseInt(line));
@@ -68,7 +68,7 @@ public class StockManager {
 				//SORT THE LIST
 				Collections.sort(allScores);
 				/// CLEAR THE FILE
-				PrintWriter pw = new PrintWriter("stocks.txt");
+				PrintWriter pw = new PrintWriter("data/stocks.txt");
 				
 				
 		/*OLDOLDOLD		
@@ -90,7 +90,7 @@ public class StockManager {
 		{
 			String s = "";
 			try {
-				BufferedReader br = new BufferedReader(new FileReader("stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
 				String line = br.readLine();
 				if(line!=null)
 				{
@@ -114,7 +114,7 @@ public class StockManager {
 				  throws IOException {
 				    String str = "Hello";
 				 
-				    Path path = Paths.get("stocks.txt");
+				    Path path = Paths.get("data/stocks.txt");
 				    byte[] strToBytes = str.getBytes();
 				 
 				    Files.write(path, strToBytes);
@@ -122,6 +122,6 @@ public class StockManager {
 				    String read = Files.readAllLines(path).get(0);
 				    //assertEquals(str, read);
 				}
-		private String scoreFile = "stocks.txt";
+		private String scoreFile = "data/stocks.txt";
 
 }
