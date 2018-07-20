@@ -1,3 +1,4 @@
+package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -9,7 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import model.Item;
 import java.util.ArrayList;
 
 public class StockManager {
@@ -18,7 +18,7 @@ public class StockManager {
 		
 		public StockManager()
 		{
-			
+			stocks = new ArrayList<>();
 		}
 		
 		public void addData(String dataString)

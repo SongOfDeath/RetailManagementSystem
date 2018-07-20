@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.*;
+import model.StockManager;
 import javafx.geometry.*;
 public class mainClass extends Application implements EventHandler<ActionEvent> {
 	
