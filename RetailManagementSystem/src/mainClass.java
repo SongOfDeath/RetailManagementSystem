@@ -10,6 +10,9 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 	Stage window;
 	Scene scene1, scene2;
 	Button button;
+	TextField usernameField = new TextField("Username");
+	TextField passwordField = new TextField("Password");
+	
 	public static void main(String[] args)
 	{
 		launch(args);
@@ -30,8 +33,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		button.setOnAction(this);
 		
 		VBox layout = new VBox();
-		TextField usernameField = new TextField("Username");
-		TextField passwordField = new TextField("Password");
+
 		//StackPane layout = new StackPane();
 		layout.getChildren().add(label1);
 		layout.getChildren().add(usernameField);
@@ -49,6 +51,10 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		if(event.getSource()==button)
 		{
 			System.out.println("submitted");
+			if(usernameField.getText()=="sercan")
+			{
+				//do something
+			}
 		}
 	}
 	
