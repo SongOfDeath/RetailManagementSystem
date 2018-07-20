@@ -7,7 +7,7 @@ public class Customer {
 	int contactNum;
 	int orderNum;
 	int []orderHistory;
-	
+	//Constructor
 	public Customer() {
 		ID = -1;
 		orderNum = 0;
@@ -15,6 +15,7 @@ public class Customer {
 		address = "";
 		orderHistory = new int[orderNum];
 	}
+	//Setter
 	public void setOrderhistory(int orderNum) {
 		this.orderNum = orderNum;
 	}
@@ -27,6 +28,7 @@ public class Customer {
 	public void setContactnum(int contactNum) {
 		this.contactNum = contactNum;
 	}
+	//Getter
 	public int getID() {
 		return ID;
 	}
