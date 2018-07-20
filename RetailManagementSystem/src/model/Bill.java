@@ -4,11 +4,15 @@ public class Bill {
 	int amount;
 	String description;
 	String name;
+	String dueDate;
+	String issueDate;
 	//Constructor
 	public Bill(){
 		amount = -1;
 		name = "";
 		description = "";
+		dueDate = " ";
+		issueDate ="";
 	}
 	//Getter
 	public int getAmount() {
