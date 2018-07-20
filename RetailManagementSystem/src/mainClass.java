@@ -10,7 +10,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	
 	Stage window;
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
-	Button button, addStockButton;
+	Button button, addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
 	TextField usernameField = new TextField("Username");
 	PasswordField  passwordField = new PasswordField();// ("Password");
@@ -31,11 +31,30 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		primaryStage.setTitle("Retail Management System");
 		
 		Label welcomeLabel = new Label("Welcome to retail management system");
-		
+		//////////////////////////////////
+		/// BUTTONS///////////////////////
+		//////////////////////////////////
 		button = new Button("Submit");
 		button.setOnAction(this);
 		addStockButton = new Button("Add Stock");
 		button.setOnAction(this);
+		stocksManagementToolButton = new Button("Stocks Management Tool");
+		stocksManagementToolButton.setOnAction(this);
+		takeCustomerFeedbackButton = new Button("Take Customer Feedback");
+		takeCustomerFeedbackButton.setOnAction(this);
+		billingManagementToolButton = new Button("Billing Management Tool");
+		billingManagementToolButton.setOnAction(this);
+		salesManagementToolButton = new Button("Sales Management Tool");
+		salesManagementToolButton.setOnAction(this);
+		itemRepairOrdersButton = new Button("Item Repair Order");
+		itemRepairOrdersButton.setOnAction(this);
+		promotionsManagementButton = new Button("Promotion Management");
+		promotionsManagementButton.setOnAction(this);
+		usedGoodsResaleButton = new Button("Used Goods Resale");
+		usedGoodsResaleButton.setOnAction(this);
+		itemRentalButton = new Button("Item Rental");
+		itemRentalButton.setOnAction(this);
+		///////////////////////
 		///////////////////////
 		shopTypeChoiceBox.getItems().add("Electronics");
 		shopTypeChoiceBox.getItems().add("Books");
@@ -75,7 +94,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			System.out.println(shopTypeChoiceBox.getValue());
 			if(shopTypeChoiceBox.getValue()=="Electronics")
 			{
-				electronicsHomeLayout.getChildren().add(addStockButton);
+				electronicsHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
 				window.setScene(electronicsHomeScene);
 			}
 		}
