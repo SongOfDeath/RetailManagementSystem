@@ -8,9 +8,6 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class ReadElecStock implements ReadStockStrategy{
-
-	File stockfile;
-	String path;
 	
 	public ReadElecStock() {
 		

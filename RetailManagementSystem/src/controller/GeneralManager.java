@@ -4,6 +4,8 @@ public class GeneralManager {
 	public static final int BOOKSHOP = 0;
 	public static final int ELECSHOP = 1;
 	public static final int CLOTHSHOP = 2;
+	public static int shop_mode;
+	
 	private static AccountManager accmanager;
 	private static BillingManager billmanager;
 	private static ComplaintManager compManager;
@@ -11,7 +13,7 @@ public class GeneralManager {
 	private static PromotionManager promoManager;
 	private static SalesManager saleManager;
 	private static ShippingManager shippingManager;
-	public int shop_mode;
+
 	
 	public GeneralManager() {
 		

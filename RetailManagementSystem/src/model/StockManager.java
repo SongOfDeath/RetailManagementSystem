@@ -12,13 +12,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ArrayList;
 import controller.GeneralManager;
+import controller.GeneralManager;
 
 public class StockManager {
 		
 		ArrayList<Item> stocks;
-		
+		ReadStockStrategy rss;
 		public StockManager()
 		{
+			if(GeneralManager.shop_mode == GeneralManager.BOOKSHOP) {
+				//to do.........
+			}
 			stocks = new ArrayList<>();
 		}
 		
