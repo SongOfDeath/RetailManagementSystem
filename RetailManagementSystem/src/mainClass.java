@@ -6,14 +6,14 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.*;
 import javafx.geometry.*;
-public class mainClass extends Application implements EventHandler<ActionEvent>{
+public class mainClass extends Application implements EventHandler<ActionEvent> {
 	
 	Stage window;
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
 	Button button, addStockButton;
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
 	TextField usernameField = new TextField("Username");
-	TextField passwordField = new TextField("Password");
+	PasswordField  passwordField = new PasswordField();// ("Password");
 	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
 	
 	public static void main(String[] args)
