@@ -1,0 +1,4 @@
+cloth1 67890 45.80 brnd shirt blue XL male
+cloth2 62890 45.80 brnd shirt blue XL fmale
+cloth3 66890 45.80 brnd shirt blue XL male
+cloth4 61890 45.80 brnd shirt blue XL fmale
