@@ -8,8 +8,8 @@ public class ElecItem extends Item{
 	int warrantyInMonths;
 	
 	// Constructor
-	public ElecItem(int barcode, double price, String brand, String category, int discount, int warranty) {
-		super(barcode, price);
+	public ElecItem(String name, int barcode, double price, String brand, String category, int discount, int warranty) {
+		super(name, barcode, price);
 		this.brand = brand;
 		this.category = category;
 		this.discount = discount;
