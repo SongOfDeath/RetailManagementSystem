@@ -63,8 +63,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		///////////////////////
 		layout = new VBox(10);
 		layout.setPadding(new Insets(20,20,20,20));
-		electronicsHomeLayout = new VBox(10);
-		electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
+
 		//StackPane layout = new StackPane();
 		layout.getChildren().add(welcomeLabel);
 		layout.getChildren().add(usernameField);
@@ -88,14 +87,32 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		if(event.getSource()==button)
 		{
 			System.out.println("submitted");
-			electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
-			window.setScene(electronicsHomeScene);
-			window.show();
+
+			//window.show();
 			System.out.println(shopTypeChoiceBox.getValue());
 			if(shopTypeChoiceBox.getValue()=="Electronics")
 			{
-				electronicsHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
+				electronicsHomeLayout = new VBox(10);
+				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
+				electronicsHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
+				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
+			}
+			else if(shopTypeChoiceBox.getValue()=="Books")
+			{
+				booksHomeLayout = new VBox(10);
+				booksHomeLayout.setPadding(new Insets(20,20,20,20));
+				booksHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
+				booksHomeScene = new Scene(booksHomeLayout, 500, 500);
+				window.setScene(booksHomeScene);
+			}
+			else if(shopTypeChoiceBox.getValue()=="Clothes")
+			{
+				clothesHomeLayout = new VBox(10);
+				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
+				clothesHomeLayout.getChildren().addAll(addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
+				clothesHomeScene = new Scene(clothesHomeLayout, 500, 500);
+				window.setScene(clothesHomeScene);
 			}
 		}
 	}
