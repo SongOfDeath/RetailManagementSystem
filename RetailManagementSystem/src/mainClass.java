@@ -11,6 +11,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 	Stage window;
 	Scene scene1, scene2;
 	Button button;
+	VBox layout, electronicsHomeScreen, booksHomeScreen, clothesHomeScreen;
 	TextField usernameField = new TextField("Username");
 	TextField passwordField = new TextField("Password");
 	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
@@ -39,7 +40,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		shopTypeChoiceBox.getItems().add("Books");
 		shopTypeChoiceBox.getItems().add("Clothes");
 		///////////////////////
-		VBox layout = new VBox(10);
+		layout = new VBox(10);
 		layout.setPadding(new Insets(20,20,20,20));
 
 		//StackPane layout = new StackPane();
@@ -65,6 +66,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		if(event.getSource()==button)
 		{
 			System.out.println("submitted");
+			window.setScene(scene2);
 			if(usernameField.getText()=="sercan")
 			{
 				//do something
