@@ -98,7 +98,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
 			}
-			else if(shopTypeChoiceBox.getValue()=="Books")
+			else if (shopTypeChoiceBox.getValue() == "Books")
 			{
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
