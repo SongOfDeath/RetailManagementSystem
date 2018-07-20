@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ArrayList;
+import controller.GeneralManager;
 
 public class StockManager {
 		

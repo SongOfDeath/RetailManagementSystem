@@ -16,6 +16,12 @@ public class ElecItem extends Item{
 		this.warrantyInMonths = warranty;
 	}
 	
+	@Override
+	public String toString() {
+		return "ElecItem [brand=" + brand + ", category=" + category + ", discount=" + discount + ", warrantyInMonths="
+				+ warrantyInMonths + ", name=" + name + ", barcode=" + barcode + ", price=" + price + "]";
+	}
+
 	//GETTERS
 	public String getBrand() {
 		return brand;

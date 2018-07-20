@@ -15,6 +15,12 @@ public class BookItem extends Item{
 		this.copyrights = copyrights;
 	}
 
+	@Override
+	public String toString() {
+		return "BookItem [author=" + author + ", isbn=" + isbn + ", publisher=" + publisher + ", copyrights="
+				+ copyrights + ", name=" + name + ", barcode=" + barcode + ", price=" + price + "]";
+	}
+
 	public String getAuthor() {
 		return author;
 	}

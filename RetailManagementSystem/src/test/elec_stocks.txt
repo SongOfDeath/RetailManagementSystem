@@ -1,0 +1,4 @@
+elec1 54139 120.00 brnd phone 10 12
+elec2 57139 120.00 brnd phone 10 12
+elec3 59139 120.00 brnd phone 10 12
+elec4 55139 120.00 brnd phone 10 12

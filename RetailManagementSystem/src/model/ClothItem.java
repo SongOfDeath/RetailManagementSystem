@@ -7,9 +7,10 @@ public class ClothItem extends Item {
 	String color;
 	String size;
 	String gender;
+	int discount;
 	
 	public ClothItem(String name, int barcode, double price, String brand, String category, String color,
-			String size, String gender) {
+			String size, String gender, int discount) {
 		
 		super(name, barcode, price);
 		this.brand = brand;
@@ -17,8 +18,32 @@ public class ClothItem extends Item {
 		this.color = color;
 		this.size = size;
 		this.gender = gender;
+		this.discount = discount;
 	}
 	
+	@Override
+	public String toString() {
+		return "ClothItem [brand=" + brand + ", category=" + category + ", color=" + color + ", size=" + size
+				+ ", gender=" + gender + ", discount=" + discount + ", name=" + name + ", barcode=" + barcode
+				+ ", price=" + price + "]";
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
 	public String getBrand() {
 		return brand;
 	}
