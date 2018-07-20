@@ -9,8 +9,9 @@ import javafx.geometry.*;
 public class mainClass extends Application implements EventHandler<ActionEvent>{
 	
 	Stage window;
-	Scene scene1, scene2;
-	Button button;
+	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
+	Button button, addStockButton;
+	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
 	TextField usernameField = new TextField("Username");
 	TextField passwordField = new TextField("Password");
 	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
@@ -33,15 +34,18 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		
 		button = new Button("Submit");
 		button.setOnAction(this);
-		
+		addStockButton = new Button("Add Stock");
+		button.setOnAction(this);
 		///////////////////////
 		shopTypeChoiceBox.getItems().add("Electronics");
 		shopTypeChoiceBox.getItems().add("Books");
 		shopTypeChoiceBox.getItems().add("Clothes");
+		shopTypeChoiceBox.setValue("Electronics");
 		///////////////////////
-		VBox layout = new VBox(10);
+		layout = new VBox(10);
 		layout.setPadding(new Insets(20,20,20,20));
-
+		electronicsHomeLayout = new VBox(10);
+		electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
 		//StackPane layout = new StackPane();
 		layout.getChildren().add(welcomeLabel);
 		layout.getChildren().add(usernameField);
@@ -54,7 +58,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 
 		
 		///////////
-		Scene scene = new Scene(layout, 500, 500);
+		scene = new Scene(layout, 500, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -65,9 +69,14 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		if(event.getSource()==button)
 		{
 			System.out.println("submitted");
-			if(usernameField.getText()=="sercan")
+			electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
+			window.setScene(electronicsHomeScene);
+			window.show();
+			System.out.println(shopTypeChoiceBox.getValue());
+			if(shopTypeChoiceBox.getValue()=="Electronics")
 			{
-				//do something
+				electronicsHomeLayout.getChildren().add(addStockButton);
+				window.setScene(electronicsHomeScene);
 			}
 		}
 	}
