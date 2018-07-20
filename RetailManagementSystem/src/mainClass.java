@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.*;
+import javafx.geometry.*;
 public class mainClass extends Application implements EventHandler<ActionEvent>{
 	
 	Stage window;
@@ -12,6 +13,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 	Button button;
 	TextField usernameField = new TextField("Username");
 	TextField passwordField = new TextField("Password");
+	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
 	
 	public static void main(String[] args)
 	{
@@ -27,19 +29,31 @@ public class mainClass extends Application implements EventHandler<ActionEvent>{
 		window = primaryStage;
 		primaryStage.setTitle("Retail Management System");
 		
-		Label label1 = new Label("Welcome to retail management system");
+		Label welcomeLabel = new Label("Welcome to retail management system");
 		
 		button = new Button("Submit");
 		button.setOnAction(this);
 		
-		VBox layout = new VBox();
+		///////////////////////
+		shopTypeChoiceBox.getItems().add("Electronics");
+		shopTypeChoiceBox.getItems().add("Books");
+		shopTypeChoiceBox.getItems().add("Clothes");
+		///////////////////////
+		VBox layout = new VBox(10);
+		layout.setPadding(new Insets(20,20,20,20));
 
 		//StackPane layout = new StackPane();
-		layout.getChildren().add(label1);
+		layout.getChildren().add(welcomeLabel);
 		layout.getChildren().add(usernameField);
 		layout.getChildren().add(passwordField);
 		layout.getChildren().add(button);
+		layout.getChildren().add(shopTypeChoiceBox);
 		
+		//////////////
+		
+
+		
+		///////////
 		Scene scene = new Scene(layout, 500, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
