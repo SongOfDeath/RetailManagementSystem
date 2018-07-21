@@ -20,6 +20,7 @@ import java.util.*;
 
 public class mainClass extends Application implements EventHandler<ActionEvent> {
 	
+	boolean stocksSetUp = false, itemRentalSetUp = false, usedGoodsResaleSetUp = false, itemRepairSetUp = false;
 	//ITEMS
 	public ObservableList<Item> allItemsAvailable = FXCollections.observableArrayList();
 	TableView<Item> stocksTable, rentalItemsTable, usedGoodsResaleTable, repairItemsTable;
@@ -83,13 +84,13 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		salesManagementToolButton = new Button("Sales Management Tool");
 		salesManagementToolButton.setOnAction(this);
 		itemRepairOrdersButton = new Button("Item Repair Order");
-		itemRepairOrdersButton.setOnAction(this);
+		itemRepairOrdersButton.setOnAction(e -> itemRepairButtonClicked());
 		promotionsManagementButton = new Button("Promotion Management");
 		promotionsManagementButton.setOnAction(this);
 		usedGoodsResaleButton = new Button("Used Goods Resale");
-		usedGoodsResaleButton.setOnAction(this);
+		usedGoodsResaleButton.setOnAction(e -> usedGoodsResaleButtonClicked());
 		itemRentalButton = new Button("Item Rental");
-		itemRentalButton.setOnAction(this);
+		itemRentalButton.setOnAction(e -> itemRentalButtonClicked());
 		///////////////////////
 		///////////////////////
 		shopTypeChoiceBox.getItems().add("Electronics");
@@ -407,6 +408,36 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		usedGoodsResaleLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
 		usedGoodsResaleScene = new Scene(usedGoodsResaleLayout, 1250,750);
 	}
+	
+	public void stocksManagementToolButtonClicked()
+	{
+		if(stocksSetUp==false)
+		setUpStocksManagementScene();
+		stocksSetUp=true;
+		window.setScene(stocksManagementScene);
+	}
+	public void itemRentalButtonClicked()
+	{
+		if(itemRentalSetUp==false)
+		setUpItemRentalScene();
+		itemRentalSetUp=true;
+		window.setScene(itemRentalScene);
+	}
+	public void itemRepairButtonClicked()
+	{
+		if(itemRepairSetUp==false)
+		setUpItemRepairScene();
+		itemRepairSetUp=true;
+		window.setScene(itemRepairScene);
+	}
+	public void usedGoodsResaleButtonClicked()
+	{
+		if(usedGoodsResaleSetUp==false)
+		setUpUsedGoodsResaleScene();
+		usedGoodsResaleSetUp=true;
+		window.setScene(usedGoodsResaleScene);
+	}
+	
 	public void fetchFromDatabaseIntoItemList()
 	{
 		allItemsAvailable.clear();
@@ -443,11 +474,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//System.out.println(data);
 		//allItemsAvailable.add(e);
 	}
-	public void stocksManagementToolButtonClicked()
-	{
-			setUpStocksManagementScene();
-			window.setScene(stocksManagementScene);
-	}
+
 	public void removeStockButtonClicked()
 	{
 		stockManager.clearStockTable();
