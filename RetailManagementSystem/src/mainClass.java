@@ -122,6 +122,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		if(event.getSource()==button)
 		{
 			System.out.println("submitted");
+			table = new TableView<>();
+			
 			//////////////////////////////////////////
 			///////ALL ITEMS TABLE COMMON ATTRIBUTES
 			TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
@@ -133,18 +135,27 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			TableColumn<Item, Double> priceColumn = new TableColumn<>("Price");
 			priceColumn.setMinWidth(200);
 			priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+			
 			///ALL ITEMS TABLE COMMON ATTRIBUTES
 			///////////////////////////////////////////
 			
 			//window.show();
 			System.out.println(shopTypeChoiceBox.getValue());
+			
+			/////////////////////////////////
+			/////SET UP ELECTRONICS SHOP
 			if(shopTypeChoiceBox.getValue()=="Electronics")
 			{
+				stockManager = new StockManager("electronicStocks.txt");
 				///////////////////////////
 				//SET UP TABLE
-				TableColumn<Item, String> brandColumn = new TableColumn<>("Name");
+				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
 				brandColumn.setMinWidth(200);
 				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
+				
+				table.setItems(allItemsAvailable);
+				table.getColumns().addAll(nameColumn);
+				
 				//SET UP TABLE
 				//////////////////////////
 				electronicsHomeLayout = new VBox(10);
@@ -156,8 +167,13 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				//setMode
 				genMngr.shop_mode = GeneralManager.ELECSHOP;
 			}
+			///SET UP ELECTRONICS SHOP
+			/////////////////////////
+			/////////////////////////
+			///SET UP BOOK SHOP
 			else if (shopTypeChoiceBox.getValue() == "Books")
 			{
+				stockManager = new StockManager("bookStocks.txt");
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
 
@@ -176,8 +192,13 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				//setMode
 				genMngr.shop_mode = GeneralManager.BOOKSHOP;
 			}
+			///SET UP BOOK SHOP
+			//////////////////////////
+			//////////////////////////
+			///SET UP CLOTH SHOP
 			else if(shopTypeChoiceBox.getValue()=="Clothes")
 			{
+				stockManager = new StockManager("clothStocks.txt");
 				clothesHomeLayout = new VBox(10);
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
 				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
@@ -200,33 +221,30 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			stockSubmitButton.setOnAction(this);
 			if(genMngr.shop_mode == genMngr.ELECSHOP)
 			{
-				stockManager = new StockManager("electronicStocks.txt");
 				nameField = new TextField("Electronic Name");
 				property1Field = new TextField("Serial number");
 				property2Field = new TextField("Product Brand");
 				property3Field = new TextField("Discount");
 				property4Field = new TextField("Category");
 				property5Field = new TextField("Warranty In Months");
-				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton);
+				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton, table);
 				stocksManagementScene = new Scene(stocksManagementLayout,1000,1000);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.BOOKSHOP)
 			{
-				stockManager = new StockManager("bookStocks.txt");
 				nameField = new TextField("Book Title");
 				property1Field = new TextField("ISBN");
 				property2Field = new TextField("Author");
 				property3Field = new TextField("Publisher");
 				property4Field = new TextField("Copyrights");
 				property5Field = new TextField("Age restriction");
-				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton);
+				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton, table);
 				stocksManagementScene = new Scene(stocksManagementLayout,750,750);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.CLOTHSHOP)
 			{
-				stockManager = new StockManager("clothStocks.txt");
 				nameField = new TextField("Cloth Name");
 				property1Field = new TextField("Size");
 				property2Field = new TextField("Color");
@@ -234,7 +252,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property4Field = new TextField("Category");
 				property5Field = new TextField("Gender");
 				
-				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton);
+				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton, table);
 				stocksManagementScene = new Scene(stocksManagementLayout,500,500);
 			}
 			window.setScene(stocksManagementScene);
