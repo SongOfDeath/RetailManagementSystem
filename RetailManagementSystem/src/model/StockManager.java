@@ -36,8 +36,8 @@ public class StockManager {
 
 				//bufferedWriter.write("sülo");
 				//bufferedWriter.append("asdas");
-				bufferedWriter.write("Name: BookName, BookISBN: 432543");
-				bufferedWriter.newLine();
+				//bufferedWriter.write("Name: BookName, BookISBN: 432543");
+				//bufferedWriter.newLine();
 				bufferedWriter.write("" + dataString);
 				bufferedWriter.newLine();
 				bufferedWriter.close();
@@ -92,12 +92,15 @@ public class StockManager {
 		
 			
 		}
-		
+		public void testMe()
+		{
+			System.out.println(" test me ");
+		}
 		public ArrayList<String> returnData()
 		{
 			ArrayList<String> allItems = new ArrayList<>();
-			String s ="";
-			
+			//allItems.add("abc");
+
 			try {
 				///READ/////////////////////////
 				//ArrayList<Integer> allScores = new ArrayList<Integer>();
@@ -108,6 +111,7 @@ public class StockManager {
 				//allScores.add(Integer.parseInt(line));
 				//line = br.readLine();
 				//System.out.println(line);
+				
 				while(line!=null)
 				{
 					allItems.add(line);
@@ -121,7 +125,6 @@ public class StockManager {
 					//System.out.println(line);
 				}
 				
-				
 				br.close();
 				//SORT THE LIST
 				//Collections.sort(allScores);
@@ -130,6 +133,7 @@ public class StockManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			return allItems;
 		}
 		
