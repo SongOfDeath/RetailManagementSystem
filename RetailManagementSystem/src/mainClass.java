@@ -38,7 +38,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	//BUTTONS
 	Button button, addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
 	//COMMON BUTTONS
-	Button stockSubmitButton, removeStockButton;
+	Button stockSubmitButton, removeStockButton, returnToMenuButton;
 	//LAYOUTS
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
 	VBox electronicsStocksManagementLayout, booksStocksManagementLayout, clothesStocksManagementLayout;
@@ -72,6 +72,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//////////////////////////////////
 		button = new Button("Submit");
 		button.setOnAction(this);
+		returnToMenuButton = new Button("Return to Menu");
+		returnToMenuButton.setOnAction(e -> returnToMenu());
 		//addStockButton = new Button("Add Stock");
 		//button.setOnAction(this);
 		stocksManagementToolButton = new Button("Stocks Management Tool");
@@ -317,7 +319,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property4Field = new TextField("Category");
 				property5Field = new TextField("Discount(Number)");
 				property6Field = new TextField("Warranty(Number in months)");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton, returnToMenuButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,1250,1000);
 				window.setScene(stocksManagementScene);
 			}
@@ -330,7 +332,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property4Field = new TextField("ISBN(Number)");
 				property5Field = new TextField("Publisher");
 				property6Field = new TextField("Copyrights");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton, returnToMenuButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,1000,750);
 				window.setScene(stocksManagementScene);
 			}
@@ -344,11 +346,13 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property5Field = new TextField("Color");
 				property6Field = new TextField("Size");
 				
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton, returnToMenuButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,750,500);
 			}
 			window.setScene(stocksManagementScene);
 		}
+		///STOCKS MANAGEMENT///////////////
+		///////////////////////////////////
 		
 		//////////////////////
 		///ADD TO STOCK
@@ -421,6 +425,21 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//fetchFromDatabaseIntoItemList();
 	}
 	
+	public void returnToMenu()
+	{
+		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
+		{
+			window.setScene(electronicsHomeScene);
+		}
+		else if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
+		{
+			window.setScene(booksHomeScene);
+		}
+		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
+		{
+			window.setScene(clothesHomeScene);
+		}
+	}
 	public void setUpCommonStocksManagementLayout()
 	{
 		
