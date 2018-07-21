@@ -152,17 +152,34 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				databaseName = "electronicStocks.txt";
 				stockManager = new StockManager(databaseName);
 				fetchFromDatabaseIntoItemList();
+				
 				///////////////////////////
 				//SET UP TABLE
 				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
 				brandColumn.setMinWidth(200);
 				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
+				TableColumn<Item, String> categoryColumn = new TableColumn<>("Category");
+				categoryColumn.setMinWidth(200);
+				categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+				TableColumn<Item, Integer> discountColumn = new TableColumn<>("Discount");
+				discountColumn.setMinWidth(100);
+				discountColumn.setCellValueFactory(new PropertyValueFactory<>("discount"));
+				TableColumn<Item, Integer> warrantyColumn = new TableColumn<>("Warranty");
+				warrantyColumn.setMinWidth(100);
+				warrantyColumn.setCellValueFactory(new PropertyValueFactory<>("warranty"));
 				
 				table.setItems(allItemsAvailable);
-				table.getColumns().addAll(nameColumn, barcodeColumn, priceColumn, brandColumn);
-				
+				table.getColumns().addAll(
+						nameColumn, 
+						barcodeColumn, 
+						priceColumn, 
+						brandColumn, 
+						categoryColumn, 
+						discountColumn, 
+						warrantyColumn);
 				//SET UP TABLE
 				//////////////////////////
+				
 				electronicsHomeLayout = new VBox(10);
 				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
 				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
@@ -173,6 +190,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			}
 			///SET UP ELECTRONICS SHOP
 			/////////////////////////
+			
 			/////////////////////////
 			///SET UP BOOK SHOP
 			else if (shopTypeChoiceBox.getValue() == "Books")
@@ -183,6 +201,33 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				databaseName = "bookStocks.txt";
 				stockManager = new StockManager("bookStocks.txt");
 				fetchFromDatabaseIntoItemList();
+				
+				///////////////////////////
+				//SET UP TABLE
+				TableColumn<Item, String> authorColumn = new TableColumn<>("Author");
+				authorColumn.setMinWidth(200);
+				authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+				TableColumn<Item, Integer> isbnColumn = new TableColumn<>("ISBN");
+				isbnColumn.setMinWidth(300);
+				isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+				TableColumn<Item, String> publisherColumn = new TableColumn<>("Publisher");
+				publisherColumn.setMinWidth(200);
+				publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+				TableColumn<Item, String> copyrightsColumn = new TableColumn<>("Copyrights");
+				copyrightsColumn.setMinWidth(200);
+				copyrightsColumn.setCellValueFactory(new PropertyValueFactory<>("copyrights"));
+				
+				table.setItems(allItemsAvailable);
+				table.getColumns().addAll(
+						nameColumn, 
+						barcodeColumn, 
+						priceColumn, 
+						authorColumn, 
+						isbnColumn, 
+						publisherColumn, 
+						copyrightsColumn);
+				//SET UP TABLE
+				//////////////////////////
 				
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
@@ -202,6 +247,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			}
 			///SET UP BOOK SHOP
 			//////////////////////////
+
 			//////////////////////////
 			///SET UP CLOTH SHOP
 			else if(shopTypeChoiceBox.getValue()=="Clothes")
@@ -212,6 +258,33 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				databaseName = "clothStocks.txt";
 				stockManager = new StockManager(databaseName);
 				fetchFromDatabaseIntoItemList();
+				
+				///////////////////////////
+				//SET UP TABLE
+				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
+				brandColumn.setMinWidth(200);
+				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
+				TableColumn<Item, String> categoryColumn = new TableColumn<>("Category");
+				categoryColumn.setMinWidth(300);
+				categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+				TableColumn<Item, String> colorColumn = new TableColumn<>("Color");
+				colorColumn.setMinWidth(200);
+				colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
+				TableColumn<Item, String> sizeColumn = new TableColumn<>("Size");
+				sizeColumn.setMinWidth(200);
+				sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+				
+				table.setItems(allItemsAvailable);
+				table.getColumns().addAll(
+						nameColumn, 
+						barcodeColumn, 
+						priceColumn, 
+						brandColumn, 
+						categoryColumn, 
+						colorColumn, 
+						sizeColumn);
+				//SET UP TABLE
+				//////////////////////////
 				
 				clothesHomeLayout = new VBox(10);
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
@@ -241,7 +314,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property5Field = new TextField("Discount(Number)");
 				property6Field = new TextField("Warranty(Number in months)");
 				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
-				stocksManagementScene = new Scene(stocksManagementLayout,1000,1000);
+				stocksManagementScene = new Scene(stocksManagementLayout,1250,1000);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.BOOKSHOP)
@@ -254,7 +327,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property5Field = new TextField("Publisher");
 				property6Field = new TextField("Copyrights");
 				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
-				stocksManagementScene = new Scene(stocksManagementLayout,750,750);
+				stocksManagementScene = new Scene(stocksManagementLayout,1000,750);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.CLOTHSHOP)
@@ -268,7 +341,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property6Field = new TextField("Size");
 				
 				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
-				stocksManagementScene = new Scene(stocksManagementLayout,500,500);
+				stocksManagementScene = new Scene(stocksManagementLayout,750,500);
 			}
 			window.setScene(stocksManagementScene);
 		}
@@ -307,12 +380,21 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				System.out.println(data.get(i));
 			}
 		}
-		if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
+		else if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
 		{
 			for(int i=0; i<data.size(); i++)
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
 				allItemsAvailable.add(new BookItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),Integer.parseInt(list.get(4)),list.get(5),list.get(6)));
+				System.out.println(data.get(i));
+			}
+		}
+		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
+		{
+			for(int i=0; i<data.size(); i++)
+			{
+				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
+				allItemsAvailable.add(new ClothItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),list.get(5),list.get(6)));
 				System.out.println(data.get(i));
 			}
 		}

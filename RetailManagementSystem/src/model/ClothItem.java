@@ -21,6 +21,16 @@ public class ClothItem extends Item {
 		this.discount = discount;
 	}
 	
+	public ClothItem(String name, int barcode, double price, String brand, String category, String color,
+			String size) {
+		
+		super(name, barcode, price);
+		this.brand = brand;
+		this.category = category;
+		this.color = color;
+		this.size = size;
+	}
+	
 	@Override
 	public String toString() {
 		return "ClothItem [brand=" + brand + ", category=" + category + ", color=" + color + ", size=" + size
