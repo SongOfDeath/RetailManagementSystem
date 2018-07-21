@@ -235,38 +235,39 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				property0Field = new TextField("Electronic Name");
 				property1Field = new TextField("Barcode(Number)");
-				property2Field = new TextField("Price(Number)");
+				property2Field = new TextField("Price(Double Number)");
 				property3Field = new TextField("Brand");
 				property4Field = new TextField("Category");
 				property5Field = new TextField("Discount(Number)");
 				property6Field = new TextField("Warranty(Number in months)");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton, table);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
 				stocksManagementScene = new Scene(stocksManagementLayout,1000,1000);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.BOOKSHOP)
 			{
 				property0Field = new TextField("Book Title");
-				property1Field = new TextField("ISBN");
-				property2Field = new TextField("Author");
-				property3Field = new TextField("Publisher");
-				property4Field = new TextField("Copyrights");
-				property5Field = new TextField("Age restriction");
-				property6Field = new TextField("Age restriction");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton, table);
+				property1Field = new TextField("Barcode(Number)");
+				property2Field = new TextField("Price(Double Number)");
+				property3Field = new TextField("Author");
+				property4Field = new TextField("ISBN(Number)");
+				property5Field = new TextField("Publisher");
+				property6Field = new TextField("Copyrights");
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
 				stocksManagementScene = new Scene(stocksManagementLayout,750,750);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.CLOTHSHOP)
 			{
 				property0Field = new TextField("Cloth Name");
-				property1Field = new TextField("Size");
-				property2Field = new TextField("Color");
+				property1Field = new TextField("Barcode(Number)");
+				property2Field = new TextField("Price(Double Number)");
 				property3Field = new TextField("Brand Name");
 				property4Field = new TextField("Category");
-				property5Field = new TextField("Gender");
+				property5Field = new TextField("Color");
+				property6Field = new TextField("Size");
 				
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton, table);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
 				stocksManagementScene = new Scene(stocksManagementLayout,500,500);
 			}
 			window.setScene(stocksManagementScene);
@@ -301,18 +302,17 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
 				allItemsAvailable.add(new ElecItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),Integer.parseInt(list.get(5)),Integer.parseInt(list.get(6))));
+				allItemsAvailable.add(new ElecItem());
 				//allItemsAvailable.add(new Item(data.get(i).))
 				System.out.println(data.get(i));
 			}
 		}
 		//else if
-
-		
 		//System.out.println(data);
 		//allItemsAvailable.add(e);
 	}
 	
-	public void setUpPages()
+	public void setUpCommonStocksManagementLayout()
 	{
 		
 	}

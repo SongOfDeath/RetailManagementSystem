@@ -1,5 +1,0 @@
-Name: BookName, BookISBN: 432543
-asd sdfds 60
-Electronic Name-Serial number-Product Brand-Discount-Category-Warranty In Months
-Electronic Name-Serial number-Product Brand-Discount-Category-Warranty In Months
-Electronic Name-Serial number-Product Brand-Discount-Category-Warranty In Months
