@@ -42,7 +42,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	Scene stocksManagementScene, itemRentalScene, itemRepairScene, usedGoodsResaleScene;
 	VBox stocksManagementLayout, itemRentalLayout, itemRepairLayout, usedGoodsResaleLayout;
 	//BUTTONS
-	Button button, addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
+	Button button, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
+	Button rentAnItemButton;
 	//COMMON BUTTONS
 	Button stockSubmitButton, removeStockButton, returnToMenuButton;
 	//LAYOUTS
@@ -369,7 +370,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			property6Field = new TextField("Size");
 		}
 	}
-	
+	////////////////////////////////////////////////////
+	///SET UP SCENES
 	public void setUpStocksManagementScene()
 	{
 		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
@@ -385,12 +387,14 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	}
 	public void setUpItemRentalScene()
 	{
+		rentAnItemButton = new Button("Rent this item");
+		rentAnItemButton.setOnAction(e -> rentAnItemButtonClicked());
 		if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
 		databaseName = "bookRental.txt";
 		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 		databaseName = "clothRental.txt";
 		rentalItemsManager = new StockManager(databaseName);
-		fetchFromDatabaseIntoItemList(rentalItemsManager, allItemsAvailable);
+		fetchFromDatabaseIntoItemList(rentalItemsManager, rentalItems);
 		itemRentalLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
 		itemRentalScene = new Scene(itemRentalLayout, 900,900);
 	}
@@ -433,7 +437,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		usedGoodsResaleSetUp=true;
 		window.setScene(usedGoodsResaleScene);
 	}
-	
+	///SET UP SCENES
+	////////////////////////////////////////////
 	public void fetchFromDatabaseIntoItemList(StockManager stockManager, ObservableList<Item> myList)
 	{
 		myList.clear();
@@ -471,6 +476,14 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//allItemsAvailable.add(e);
 	}
 
+	public void rentAnItemButtonClicked()
+	{
+		String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText() + "-" + property6Field.getText();
+		
+		rentalItemsManager.addData(dataToAdd);
+		fetchFromDatabaseIntoItemList(rentalItemsManager, rentalItems);
+	}
+	
 	public void addStockButtonClicked()
 	{
 			String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText() + "-" + property6Field.getText();
