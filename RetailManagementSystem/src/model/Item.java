@@ -16,6 +16,13 @@ public class Item {
 		this.barcode = barcode;
 		this.price = price;
 	}
+
+	public String returnItemData()
+	{
+		String s = name + "-" + barcode + "-" + price;
+		return s;
+	}
+	
 	//GETTERS
 	public String getName() {
 		return this.name;

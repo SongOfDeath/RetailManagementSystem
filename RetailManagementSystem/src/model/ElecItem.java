@@ -30,6 +30,12 @@ public class ElecItem extends Item{
 				+ warrantyInMonths + ", name=" + name + ", barcode=" + barcode + ", price=" + price + "]";
 	}
 
+	@Override
+	public String returnItemData()
+	{
+		String s = name + "-" + barcode + "-" + price + "-" + brand + "-" + category + "-" + discount + "-" + warrantyInMonths;
+		return s;
+	}
 	//GETTERS
 	public String getBrand() {
 		return brand;

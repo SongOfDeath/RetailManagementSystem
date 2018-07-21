@@ -90,7 +90,6 @@ public class StockManager {
 				/// CLEAR THE FILE
 				PrintWriter pw = new PrintWriter(fileName);
 				
-				
 		/*OLDOLDOLD		
 				/// WRITE THE SORTED SCORES TO THE TXT FILE
 				for(int i=allScores.size() - 1; i>=0; i--)
@@ -104,6 +103,16 @@ public class StockManager {
 			}
 		
 			
+		}
+		
+		public void clearStockTable()
+		{
+			try {
+				PrintWriter pw = new PrintWriter(fileName);
+				pw.close();
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		public void testMe()
 		{

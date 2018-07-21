@@ -30,6 +30,13 @@ public class ClothItem extends Item {
 		this.color = color;
 		this.size = size;
 	}
+
+	@Override
+	public String returnItemData()
+	{
+		String s = name + "-" + barcode + "-" + price + "-" + brand + "-" + category + "-" + color + "-" + size;
+		return s;
+	}
 	
 	@Override
 	public String toString() {

@@ -14,6 +14,8 @@ import javafx.stage.*;
 import model.StockManager;
 import javafx.geometry.*;
 import javafx.collections.*;
+
+import java.io.PrintWriter;
 import java.util.*;
 
 public class mainClass extends Application implements EventHandler<ActionEvent> {
@@ -36,7 +38,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	//BUTTONS
 	Button button, addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
 	//COMMON BUTTONS
-	Button stockSubmitButton;
+	Button stockSubmitButton, removeStockButton;
 	//LAYOUTS
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
 	VBox electronicsStocksManagementLayout, booksStocksManagementLayout, clothesStocksManagementLayout;
@@ -300,6 +302,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//////////////////////////////////////////////
 		if(event.getSource()==stocksManagementToolButton)
 		{
+			removeStockButton = new Button("Remove Stock");
+			removeStockButton.setOnAction(e -> removeStockButtonClicked());
 			stocksManagementLayout = new VBox(10);
 			stocksManagementLayout.setPadding(new Insets(20,20,20,20));
 			stockSubmitButton = new Button("Add to Stock");
@@ -313,7 +317,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property4Field = new TextField("Category");
 				property5Field = new TextField("Discount(Number)");
 				property6Field = new TextField("Warranty(Number in months)");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,1250,1000);
 				window.setScene(stocksManagementScene);
 			}
@@ -326,7 +330,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property4Field = new TextField("ISBN(Number)");
 				property5Field = new TextField("Publisher");
 				property6Field = new TextField("Copyrights");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,1000,750);
 				window.setScene(stocksManagementScene);
 			}
@@ -340,7 +344,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				property5Field = new TextField("Color");
 				property6Field = new TextField("Size");
 				
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table);
+				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,750,500);
 			}
 			window.setScene(stocksManagementScene);
@@ -401,6 +405,20 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//else if
 		//System.out.println(data);
 		//allItemsAvailable.add(e);
+	}
+	
+	public void removeStockButtonClicked()
+	{
+		stockManager.clearStockTable();
+		ObservableList<Item> itemSelected;
+		itemSelected = table.getSelectionModel().getSelectedItems();
+		itemSelected.forEach(allItemsAvailable::remove);
+		
+		for(int i=0; i<allItemsAvailable.size(); i++)
+		{
+			stockManager.addData(allItemsAvailable.get(i).returnItemData());
+		}
+		//fetchFromDatabaseIntoItemList();
 	}
 	
 	public void setUpCommonStocksManagementLayout()
