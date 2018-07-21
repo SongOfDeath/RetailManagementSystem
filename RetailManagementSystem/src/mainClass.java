@@ -22,7 +22,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	
 	//ITEMS
 	public ObservableList<Item> allItemsAvailable = FXCollections.observableArrayList();
-	TableView<Item> table;
+	TableView<Item> stocksTable, rentalItemsTable, usedGoodsResaleTable, repairItemsTable;
 	
 	GeneralManager genMngr = new GeneralManager();
 	StockManager stockManager;
@@ -31,17 +31,15 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	String databaseName;
 	//PAGES
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
-	Scene electronicsStocksManagementScene, booksStocksManagementScene, clothesStocksManagementScene;
 	//COMMON PAGES AND LAYOUTS
-	Scene stocksManagementScene;
-	VBox stocksManagementLayout;
+	Scene stocksManagementScene, itemRentalScene, itemRepairScene, usedGoodsResaleScene;
+	VBox stocksManagementLayout, itemRentalLayout, itemRepairLayout, usedGoodsResaleLayout;
 	//BUTTONS
 	Button button, addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
 	//COMMON BUTTONS
 	Button stockSubmitButton, removeStockButton, returnToMenuButton;
 	//LAYOUTS
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
-	VBox electronicsStocksManagementLayout, booksStocksManagementLayout, clothesStocksManagementLayout;
 	//VBox booksStockManagementLayout;
 	
 	//TEXT FIELDS
@@ -77,7 +75,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//addStockButton = new Button("Add Stock");
 		//button.setOnAction(this);
 		stocksManagementToolButton = new Button("Stocks Management Tool");
-		stocksManagementToolButton.setOnAction(this);
+		stocksManagementToolButton.setOnAction(e -> stocksManagementToolButtonClicked());
 		takeCustomerFeedbackButton = new Button("Take Customer Feedback");
 		takeCustomerFeedbackButton.setOnAction(this);
 		billingManagementToolButton = new Button("Billing Management Tool");
@@ -126,11 +124,23 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		///LOGIN AND SET UP HOMEPAGE/////////////////
 		if(event.getSource()==button)
 		{
+			if(shopTypeChoiceBox.getValue()=="Electronics")
+			{
+				genMngr.shop_mode = GeneralManager.ELECSHOP;
+			}
+			else if(shopTypeChoiceBox.getValue()=="Books")
+			{
+				genMngr.shop_mode = GeneralManager.BOOKSHOP;
+			}
+			else if(shopTypeChoiceBox.getValue()=="Clothes")
+			{
+				genMngr.shop_mode = GeneralManager.CLOTHSHOP;
+			}
 			System.out.println("submitted");
-			table = new TableView<>();
-			
+			stocksTable = new TableView<>();
+			setTextFields(); //Set up the pages
 			//////////////////////////////////////////
-			///////ALL ITEMS TABLE COMMON ATTRIBUTES
+			///////ALL ITEMS stocksTable COMMON ATTRIBUTES
 			TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
 			nameColumn.setMinWidth(200);
 			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -141,24 +151,22 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			priceColumn.setMinWidth(200);
 			priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 			
-			///ALL ITEMS TABLE COMMON ATTRIBUTES
+			///ALL ITEMS stocksTable COMMON ATTRIBUTES
 			///////////////////////////////////////////
 			
 			//window.show();
 			System.out.println(shopTypeChoiceBox.getValue());
 			/////////////////////////////////
 			/////SET UP ELECTRONICS SHOP
-			if(shopTypeChoiceBox.getValue()=="Electronics")
+			if(genMngr.shop_mode == GeneralManager.ELECSHOP)
 			{
-				//setMode
-				genMngr.shop_mode = GeneralManager.ELECSHOP;
 				
 				databaseName = "electronicStocks.txt";
 				stockManager = new StockManager(databaseName);
 				fetchFromDatabaseIntoItemList();
 				
 				///////////////////////////
-				//SET UP TABLE
+				//SET UP stocksTable
 				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
 				brandColumn.setMinWidth(200);
 				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
@@ -172,8 +180,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				warrantyColumn.setMinWidth(100);
 				warrantyColumn.setCellValueFactory(new PropertyValueFactory<>("warranty"));
 				
-				table.setItems(allItemsAvailable);
-				table.getColumns().addAll(
+				stocksTable.setItems(allItemsAvailable);
+				stocksTable.getColumns().addAll(
 						nameColumn, 
 						barcodeColumn, 
 						priceColumn, 
@@ -181,7 +189,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 						categoryColumn, 
 						discountColumn, 
 						warrantyColumn);
-				//SET UP TABLE
+				//SET UP stocksTable
 				//////////////////////////
 				
 				electronicsHomeLayout = new VBox(10);
@@ -199,7 +207,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			
 			/////////////////////////
 			///SET UP BOOK SHOP
-			else if (shopTypeChoiceBox.getValue() == "Books")
+			else if (genMngr.shop_mode == GeneralManager.BOOKSHOP)
 			{
 				//setMode
 				genMngr.shop_mode = GeneralManager.BOOKSHOP;
@@ -209,7 +217,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				fetchFromDatabaseIntoItemList();
 				
 				///////////////////////////
-				//SET UP TABLE
+				//SET UP stocksTable
 				TableColumn<Item, String> authorColumn = new TableColumn<>("Author");
 				authorColumn.setMinWidth(200);
 				authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -223,8 +231,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				copyrightsColumn.setMinWidth(200);
 				copyrightsColumn.setCellValueFactory(new PropertyValueFactory<>("copyrights"));
 				
-				table.setItems(allItemsAvailable);
-				table.getColumns().addAll(
+				stocksTable.setItems(allItemsAvailable);
+				stocksTable.getColumns().addAll(
 						nameColumn, 
 						barcodeColumn, 
 						priceColumn, 
@@ -232,7 +240,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 						isbnColumn, 
 						publisherColumn, 
 						copyrightsColumn);
-				//SET UP TABLE
+				//SET UP stocksTable
 				//////////////////////////
 				
 				booksHomeLayout = new VBox(10);
@@ -257,7 +265,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 
 			//////////////////////////
 			///SET UP CLOTH SHOP
-			else if(shopTypeChoiceBox.getValue()=="Clothes")
+			else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 			{
 				//setMode
 				genMngr.shop_mode = GeneralManager.CLOTHSHOP;
@@ -267,7 +275,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				fetchFromDatabaseIntoItemList();
 				
 				///////////////////////////
-				//SET UP TABLE
+				//SET UP stocksTable
 				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
 				brandColumn.setMinWidth(200);
 				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
@@ -281,8 +289,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				sizeColumn.setMinWidth(200);
 				sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
 				
-				table.setItems(allItemsAvailable);
-				table.getColumns().addAll(
+				stocksTable.setItems(allItemsAvailable);
+				stocksTable.getColumns().addAll(
 						nameColumn, 
 						barcodeColumn, 
 						priceColumn, 
@@ -290,7 +298,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 						categoryColumn, 
 						colorColumn, 
 						sizeColumn);
-				//SET UP TABLE
+				//SET UP stocksTable
 				//////////////////////////
 				
 				clothesHomeLayout = new VBox(10);
@@ -305,59 +313,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			////////////////////////////////////
 			////////////////////////////////////
 		}
-		/////////////STOCKS MANAGEMENT////////////////
-		//////////////////////////////////////////////
-		if(event.getSource()==stocksManagementToolButton)
-		{
-			removeStockButton = new Button("Remove Stock");
-			removeStockButton.setOnAction(e -> removeStockButtonClicked());
-			stocksManagementLayout = new VBox(10);
-			stocksManagementLayout.setPadding(new Insets(20,20,20,20));
-			stockSubmitButton = new Button("Add to Stock");
-			stockSubmitButton.setOnAction(this);
-			if(genMngr.shop_mode == genMngr.ELECSHOP)
-			{
-				property0Field = new TextField("Electronic Name");
-				property1Field = new TextField("Barcode(Number)");
-				property2Field = new TextField("Price(Double Number)");
-				property3Field = new TextField("Brand");
-				property4Field = new TextField("Category");
-				property5Field = new TextField("Discount(Number)");
-				property6Field = new TextField("Warranty(Number in months)");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton, returnToMenuButton);
-				stocksManagementScene = new Scene(stocksManagementLayout,1250,1000);
-				window.setScene(stocksManagementScene);
-			}
-			else if(genMngr.shop_mode == genMngr.BOOKSHOP)
-			{
-				property0Field = new TextField("Book Title");
-				property1Field = new TextField("Barcode(Number)");
-				property2Field = new TextField("Price(Double Number)");
-				property3Field = new TextField("Author");
-				property4Field = new TextField("ISBN(Number)");
-				property5Field = new TextField("Publisher");
-				property6Field = new TextField("Copyrights");
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton, returnToMenuButton);
-				stocksManagementScene = new Scene(stocksManagementLayout,1000,750);
-				window.setScene(stocksManagementScene);
-			}
-			else if(genMngr.shop_mode == genMngr.CLOTHSHOP)
-			{
-				property0Field = new TextField("Cloth Name");
-				property1Field = new TextField("Barcode(Number)");
-				property2Field = new TextField("Price(Double Number)");
-				property3Field = new TextField("Brand Name");
-				property4Field = new TextField("Category");
-				property5Field = new TextField("Color");
-				property6Field = new TextField("Size");
-				
-				stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, table, removeStockButton, returnToMenuButton);
-				stocksManagementScene = new Scene(stocksManagementLayout,750,500);
-			}
-			window.setScene(stocksManagementScene);
-		}
-		///STOCKS MANAGEMENT///////////////
-		///////////////////////////////////
 		
 		//////////////////////
 		///ADD TO STOCK
@@ -378,7 +333,80 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		
 	}
 	*/
+	public void setTextFields()
+	{
+		removeStockButton = new Button("Remove Stock");
+		removeStockButton.setOnAction(e -> removeStockButtonClicked());
+		
+		
+		stocksManagementLayout = new VBox(10);
+		stocksManagementLayout.setPadding(new Insets(20,20,20,20));
+		itemRentalLayout = new VBox(10);
+		itemRentalLayout.setPadding(new Insets(20,20,20,20));
+		itemRepairLayout = new VBox(10);
+		itemRepairLayout.setPadding(new Insets(20,20,20,20));
+		usedGoodsResaleLayout = new VBox(10);
+		usedGoodsResaleLayout.setPadding(new Insets(20,20,20,20));
+		stockSubmitButton = new Button("Add to Stock");
+		stockSubmitButton.setOnAction(this);
+		
+		if(genMngr.shop_mode == genMngr.ELECSHOP)
+		{
+			property0Field = new TextField("Electronic Name");
+			property1Field = new TextField("Barcode(Number)");
+			property2Field = new TextField("Price(Double Number)");
+			property3Field = new TextField("Brand");
+			property4Field = new TextField("Category");
+			property5Field = new TextField("Discount(Number)");
+			property6Field = new TextField("Warranty(Number in months)");
+			//stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
+			//stocksManagementScene = new Scene(stocksManagementLayout,1250,1000);
+			
+		}
+		else if(genMngr.shop_mode == genMngr.BOOKSHOP)
+		{
+			property0Field = new TextField("Book Title");
+			property1Field = new TextField("Barcode(Number)");
+			property2Field = new TextField("Price(Double Number)");
+			property3Field = new TextField("Author");
+			property4Field = new TextField("ISBN(Number)");
+			property5Field = new TextField("Publisher");
+			property6Field = new TextField("Copyrights");
+			//stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
+			//stocksManagementScene = new Scene(stocksManagementLayout,1000,750);
+		}
+		else if(genMngr.shop_mode == genMngr.CLOTHSHOP)
+		{
+			property0Field = new TextField("Cloth Name");
+			property1Field = new TextField("Barcode(Number)");
+			property2Field = new TextField("Price(Double Number)");
+			property3Field = new TextField("Brand Name");
+			property4Field = new TextField("Category");
+			property5Field = new TextField("Color");
+			property6Field = new TextField("Size");
+		}
+	}
 	
+	public void setUpStocksManagementScene()
+	{
+		stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
+		stocksManagementScene = new Scene(stocksManagementLayout,750,500);
+	}
+	public void setUpItemRentalScene()
+	{
+		itemRentalLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
+		itemRentalScene = new Scene(itemRentalLayout, 900,900);
+	}
+	public void setUpItemRepairScene()
+	{
+		itemRepairLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
+		itemRepairScene = new Scene(itemRepairLayout, 1100,1100);
+	}
+	public void setUpUsedGoodsResaleScene()
+	{
+		usedGoodsResaleLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
+		usedGoodsResaleScene = new Scene(usedGoodsResaleLayout, 1250,750);
+	}
 	public void fetchFromDatabaseIntoItemList()
 	{
 		allItemsAvailable.clear();
@@ -415,12 +443,16 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//System.out.println(data);
 		//allItemsAvailable.add(e);
 	}
-	
+	public void stocksManagementToolButtonClicked()
+	{
+			setUpStocksManagementScene();
+			window.setScene(stocksManagementScene);
+	}
 	public void removeStockButtonClicked()
 	{
 		stockManager.clearStockTable();
 		ObservableList<Item> itemSelected;
-		itemSelected = table.getSelectionModel().getSelectedItems();
+		itemSelected = stocksTable.getSelectionModel().getSelectedItems();
 		itemSelected.forEach(allItemsAvailable::remove);
 		
 		for(int i=0; i<allItemsAvailable.size(); i++)
@@ -445,6 +477,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			window.setScene(clothesHomeScene);
 		}
 	}
+	
+	
 	public void setUpCommonStocksManagementLayout()
 	{
 		

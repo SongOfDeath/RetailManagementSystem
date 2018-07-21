@@ -114,6 +114,11 @@ public class StockManager {
 				e.printStackTrace();
 			}
 		}
+		
+		public void setFileName(String fileName)
+		{
+			this.fileName = fileName;
+		}
 		public void testMe()
 		{
 			System.out.println(" test me ");
