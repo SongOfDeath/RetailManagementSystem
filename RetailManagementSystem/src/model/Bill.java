@@ -40,4 +40,23 @@ public class Bill {
 	public String toString() {
 		return name + "-" + amount + "-" + issueDate + "-" + dueDate + "-" + description;
 	}
+	
+	public boolean equals(Object bill) {
+		if (bill == null) {
+			return false;
+		}
+		if (bill == this) {
+			return true;
+		}
+		if (!(bill instanceof Bill)) {
+			return false;
+		}
+		Bill b = (Bill) bill;
+		boolean b1 = b.amount == this.amount;
+		boolean b2 = b.name.equals(this.name);
+		boolean b3 = b.dueDate.equals(this.dueDate);
+		boolean b4 = b.issueDate.equals(this.issueDate);
+		boolean b5 = b.description.equals(this.description);
+		return b1 && b2 && b3 && b4 && b5;
+	}
 }
