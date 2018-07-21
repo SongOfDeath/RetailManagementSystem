@@ -23,10 +23,16 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	boolean stocksSetUp = false, itemRentalSetUp = false, usedGoodsResaleSetUp = false, itemRepairSetUp = false;
 	//ITEMS
 	public ObservableList<Item> allItemsAvailable = FXCollections.observableArrayList();
+	public ObservableList<Item> rentalItems = FXCollections.observableArrayList();
+	public ObservableList<Item> usedGoods = FXCollections.observableArrayList();
+	public ObservableList<Item> itemsForRepair = FXCollections.observableArrayList();
 	TableView<Item> stocksTable, rentalItemsTable, usedGoodsResaleTable, repairItemsTable;
 	
 	GeneralManager genMngr = new GeneralManager();
 	StockManager stockManager;
+	StockManager rentalItemsManager;
+	StockManager usedGoodsManager;
+	StockManager repairItemsManager;
 	Stage window;
 	String storeType = "Electronics";
 	String databaseName;
@@ -162,10 +168,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			if(genMngr.shop_mode == GeneralManager.ELECSHOP)
 			{
 				
-				databaseName = "electronicStocks.txt";
-				stockManager = new StockManager(databaseName);
-				fetchFromDatabaseIntoItemList();
-				
 				///////////////////////////
 				//SET UP stocksTable
 				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
@@ -210,12 +212,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			///SET UP BOOK SHOP
 			else if (genMngr.shop_mode == GeneralManager.BOOKSHOP)
 			{
-				//setMode
-				genMngr.shop_mode = GeneralManager.BOOKSHOP;
-				
-				databaseName = "bookStocks.txt";
-				stockManager = new StockManager("bookStocks.txt");
-				fetchFromDatabaseIntoItemList();
 				
 				///////////////////////////
 				//SET UP stocksTable
@@ -270,10 +266,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				//setMode
 				genMngr.shop_mode = GeneralManager.CLOTHSHOP;
-				
-				databaseName = "clothStocks.txt";
-				stockManager = new StockManager(databaseName);
-				fetchFromDatabaseIntoItemList();
 				
 				///////////////////////////
 				//SET UP stocksTable
@@ -390,6 +382,14 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	
 	public void setUpStocksManagementScene()
 	{
+		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
+		databaseName = "electronicStocks.txt";
+		else if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
+		databaseName = "bookStocks.txt";
+		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
+		databaseName = "clothStocks.txt";
+		stockManager = new StockManager(databaseName);
+		fetchFromDatabaseIntoItemList();
 		stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
 		stocksManagementScene = new Scene(stocksManagementLayout,750,500);
 	}
