@@ -1,4 +1,3 @@
-package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -18,7 +17,7 @@ public class StockManager {
 			
 		}
 		
-		public void addScore(int bookISBN)
+		public void addData(String dataString)
 		{
 			try {
 				FileWriter writer = new FileWriter("stocks.txt", true);
@@ -28,7 +27,7 @@ public class StockManager {
 				//bufferedWriter.append("asdas");
 				bufferedWriter.write("Name: BookName, BookISBN: 432543");
 				bufferedWriter.newLine();
-				bufferedWriter.write("" + bookISBN);
+				bufferedWriter.write("" + dataString);
 				bufferedWriter.newLine();
 				bufferedWriter.close();
 			} catch (IOException e) {
@@ -36,9 +35,9 @@ public class StockManager {
 			}	
 		}
 		
-		public void putScoreOnTable(int score)
+		public void putDataOnTable(String dataString)
 		{
-			addScore(score);
+			addData(dataString);
 			
 			try {
 				///READ/////////////////////////
@@ -46,9 +45,7 @@ public class StockManager {
 				ArrayList<String> allBooks = new ArrayList<String>();
 				BufferedReader br = new BufferedReader(new FileReader("stocks.txt"));
 				String line = br.readLine();
-				//System.out.println(line);
 				line = br.readLine();
-				//System.out.println(line);
 				allScores.add(Integer.parseInt(line));
 				line = br.readLine();
 				//System.out.println(line);
@@ -69,16 +66,19 @@ public class StockManager {
 				/// CLEAR THE FILE
 				PrintWriter pw = new PrintWriter("stocks.txt");
 				
+				
+		/*OLDOLDOLD		
 				/// WRITE THE SORTED SCORES TO THE TXT FILE
 				for(int i=allScores.size() - 1; i>=0; i--)
 				{
-					addScore(allScores.get(i));
+					addData(allScores.get(i));
 					//System.out.println("ALL SCORES " + allScores.get(i));
 				}
+				*/
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
+		
 			
 		}
 		

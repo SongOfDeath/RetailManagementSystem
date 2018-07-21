@@ -8,20 +8,14 @@ public class ElecItem extends Item{
 	int warrantyInMonths;
 	
 	// Constructor
-	public ElecItem(String name, int barcode, double price, String brand, String category, int discount, int warranty) {
-		super(name, barcode, price);
+	public ElecItem(int barcode, double price, String brand, String category, int discount, int warranty) {
+		super(barcode, price);
 		this.brand = brand;
 		this.category = category;
 		this.discount = discount;
 		this.warrantyInMonths = warranty;
 	}
 	
-	@Override
-	public String toString() {
-		return "ElecItem [brand=" + brand + ", category=" + category + ", discount=" + discount + ", warrantyInMonths="
-				+ warrantyInMonths + ", name=" + name + ", barcode=" + barcode + ", price=" + price + "]";
-	}
-
 	//GETTERS
 	public String getBrand() {
 		return brand;
