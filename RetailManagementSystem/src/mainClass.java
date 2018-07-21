@@ -182,9 +182,9 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			else if(genMngr.shop_mode == genMngr.BOOKSHOP)
 			{
 				stockManager = new StockManager("electronicStocks.txt");
-				nameField = new TextField("Electronic Name");
-				property1Field = new TextField("Serial number");
-				property2Field = new TextField("Warranty In Months");
+				nameField = new TextField("Book Name");
+				property1Field = new TextField("ISBN");
+				property2Field = new TextField("Author");
 				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, stockSubmitButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,750,750);
 				window.setScene(stocksManagementScene);
@@ -192,9 +192,9 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			else if(genMngr.shop_mode == genMngr.CLOTHSHOP)
 			{
 				stockManager = new StockManager("electronicStocks.txt");
-				nameField = new TextField("Electronic Name");
-				property1Field = new TextField("Serial number");
-				property2Field = new TextField("Warranty In Months");
+				nameField = new TextField("Cloth Name");
+				property1Field = new TextField("Cloth Size");
+				property2Field = new TextField("Color");
 
 				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, stockSubmitButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,500,500);
