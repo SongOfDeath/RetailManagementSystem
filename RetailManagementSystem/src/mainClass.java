@@ -307,17 +307,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			////////////////////////////////////
 		}
 		
-		//////////////////////
-		///ADD TO STOCK
-		if(event.getSource() == stockSubmitButton)
-		{
-			String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText() + "-" + property6Field.getText();
-			
-			stockManager.addData(dataToAdd);
-			fetchFromDatabaseIntoItemList();
-		}
-		///ADD TO STOCK
-		//////////////////////
+
 		
 	}
 	/*
@@ -341,7 +331,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		usedGoodsResaleLayout = new VBox(10);
 		usedGoodsResaleLayout.setPadding(new Insets(20,20,20,20));
 		stockSubmitButton = new Button("Add to Stock");
-		stockSubmitButton.setOnAction(this);
+		stockSubmitButton.setOnAction(e -> addStockButtonClicked());
 		
 		if(genMngr.shop_mode == genMngr.ELECSHOP)
 		{
@@ -389,12 +379,18 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 		databaseName = "clothStocks.txt";
 		stockManager = new StockManager(databaseName);
-		fetchFromDatabaseIntoItemList();
+		fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 		stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
 		stocksManagementScene = new Scene(stocksManagementLayout,750,500);
 	}
 	public void setUpItemRentalScene()
 	{
+		if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
+		databaseName = "bookRental.txt";
+		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
+		databaseName = "clothRental.txt";
+		rentalItemsManager = new StockManager(databaseName);
+		fetchFromDatabaseIntoItemList(rentalItemsManager, allItemsAvailable);
 		itemRentalLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
 		itemRentalScene = new Scene(itemRentalLayout, 900,900);
 	}
@@ -438,9 +434,9 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		window.setScene(usedGoodsResaleScene);
 	}
 	
-	public void fetchFromDatabaseIntoItemList()
+	public void fetchFromDatabaseIntoItemList(StockManager stockManager, ObservableList<Item> myList)
 	{
-		allItemsAvailable.clear();
+		myList.clear();
 		ArrayList<String> data = new ArrayList<>();
 		data = stockManager.returnData();
 		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
@@ -448,7 +444,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			for(int i=0; i<data.size(); i++)
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
-				allItemsAvailable.add(new ElecItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),Integer.parseInt(list.get(5)),Integer.parseInt(list.get(6))));
+				myList.add(new ElecItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),Integer.parseInt(list.get(5)),Integer.parseInt(list.get(6))));
 				System.out.println(data.get(i));
 			}
 		}
@@ -457,7 +453,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			for(int i=0; i<data.size(); i++)
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
-				allItemsAvailable.add(new BookItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),Integer.parseInt(list.get(4)),list.get(5),list.get(6)));
+				myList.add(new BookItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),Integer.parseInt(list.get(4)),list.get(5),list.get(6)));
 				System.out.println(data.get(i));
 			}
 		}
@@ -466,7 +462,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			for(int i=0; i<data.size(); i++)
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
-				allItemsAvailable.add(new ClothItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),list.get(5),list.get(6)));
+				myList.add(new ClothItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),list.get(5),list.get(6)));
 				System.out.println(data.get(i));
 			}
 		}
@@ -475,6 +471,16 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//allItemsAvailable.add(e);
 	}
 
+	public void addStockButtonClicked()
+	{
+			String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText() + "-" + property6Field.getText();
+			
+			stockManager.addData(dataToAdd);
+			fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
+		///ADD TO STOCK
+		//////////////////////
+	}
+	
 	public void removeStockButtonClicked()
 	{
 		stockManager.clearStockTable();
