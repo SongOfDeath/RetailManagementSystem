@@ -7,7 +7,7 @@ public class Bill {
 	String dueDate;
 	String issueDate;
 	//Constructor
-	public Bill(){
+	public Bill() {
 		amount = -1;
 		name = "";
 		description = "";
