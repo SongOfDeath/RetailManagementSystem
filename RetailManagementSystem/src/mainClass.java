@@ -116,7 +116,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		layout.getChildren().add(shopTypeChoiceBox);
 		
 		//////////////
-		
+
 
 		
 		///////////
@@ -150,10 +150,120 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			usedGoodsResaleTable = new TableView<>();
 			repairItemsTable = new TableView<>();
 			setTextFields(); //Set up the pages
-
+			////////////////////////////////////////////////////
+			//////////////////SET TABLES////////////////////////
+			//////////////////////////////////////////
+			///////ALL ITEMS stocksTable COMMON ATTRIBUTES
+			TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
+			nameColumn.setMinWidth(200);
+			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+			TableColumn<Item, Integer> barcodeColumn = new TableColumn<>("Barcode");
+			barcodeColumn.setMinWidth(200);
+			barcodeColumn.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+			TableColumn<Item, Double> priceColumn = new TableColumn<>("Price");
+			priceColumn.setMinWidth(200);
+			priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 			
+			///ALL ITEMS stocksTable COMMON ATTRIBUTES
+			///////////////////////////////////////////
+			if(genMngr.shop_mode == GeneralManager.ELECSHOP)
+			{
+				databaseName = "electronicStocks.txt";
+				///////////////////////////
+				//SET UP stocksTable
+				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
+				brandColumn.setMinWidth(200);
+				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
+				TableColumn<Item, String> categoryColumn = new TableColumn<>("Category");
+				categoryColumn.setMinWidth(200);
+				categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+				TableColumn<Item, Integer> discountColumn = new TableColumn<>("Discount");
+				discountColumn.setMinWidth(100);
+				discountColumn.setCellValueFactory(new PropertyValueFactory<>("discount"));
+				TableColumn<Item, Integer> warrantyColumn = new TableColumn<>("Warranty");
+				warrantyColumn.setMinWidth(100);
+				warrantyColumn.setCellValueFactory(new PropertyValueFactory<>("warranty"));
+				
+				//fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
+				stocksTable.setItems(allItemsAvailable);
+				stocksTable.getColumns().addAll(
+						nameColumn, 
+						barcodeColumn, 
+						priceColumn, 
+						brandColumn, 
+						categoryColumn, 
+						discountColumn, 
+						warrantyColumn);
+				//SET UP stocksTable
+				//////////////////////////
+			}
+			
+			else if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
+			{
+				databaseName = "bookStocks.txt";
+				///////////////////////////
+				//SET UP stocksTable
+				TableColumn<Item, String> authorColumn = new TableColumn<>("Author");
+				authorColumn.setMinWidth(200);
+				authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+				TableColumn<Item, Integer> isbnColumn = new TableColumn<>("ISBN");
+				isbnColumn.setMinWidth(300);
+				isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+				TableColumn<Item, String> publisherColumn = new TableColumn<>("Publisher");
+				publisherColumn.setMinWidth(200);
+				publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+				TableColumn<Item, String> copyrightsColumn = new TableColumn<>("Copyrights");
+				copyrightsColumn.setMinWidth(200);
+				copyrightsColumn.setCellValueFactory(new PropertyValueFactory<>("copyrights"));
+				
+				//fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
+				stocksTable.setItems(allItemsAvailable);
+				stocksTable.getColumns().addAll(
+						nameColumn, 
+						barcodeColumn, 
+						priceColumn, 
+						authorColumn, 
+						isbnColumn, 
+						publisherColumn, 
+						copyrightsColumn);
+				//SET UP stocksTable
+				//////////////////////////
+			}
+			else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
+			{
+				databaseName = "clothStocks.txt";
+				///////////////////////////
+				//SET UP stocksTable
+				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
+				brandColumn.setMinWidth(200);
+				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
+				TableColumn<Item, String> categoryColumn = new TableColumn<>("Category");
+				categoryColumn.setMinWidth(300);
+				categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+				TableColumn<Item, String> colorColumn = new TableColumn<>("Color");
+				colorColumn.setMinWidth(200);
+				colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
+				TableColumn<Item, String> sizeColumn = new TableColumn<>("Size");
+				sizeColumn.setMinWidth(200);
+				sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+				
+				//fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
+				stocksTable.setItems(allItemsAvailable);
+				stocksTable.getColumns().addAll(
+						nameColumn, 
+						barcodeColumn, 
+						priceColumn, 
+						brandColumn, 
+						categoryColumn, 
+						colorColumn, 
+						sizeColumn);
+				//SET UP stocksTable
+				//////////////////////////
+			}
+			//////////////SET TABLES/////////////
+			/////////////////////////////////////
 			//window.show();
-			System.out.println(shopTypeChoiceBox.getValue());
+			//System.out.println(shopTypeChoiceBox.getValue());
 			/////////////////////////////////
 			/////SET UP ELECTRONICS SHOP
 			if(genMngr.shop_mode == GeneralManager.ELECSHOP)
@@ -289,111 +399,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	///SET UP SCENES
 	public void setUpStocksManagementScene()
 	{
-		//////////////////////////////////////////
-		///////ALL ITEMS stocksTable COMMON ATTRIBUTES
-		TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
-		nameColumn.setMinWidth(200);
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		TableColumn<Item, Integer> barcodeColumn = new TableColumn<>("Barcode");
-		barcodeColumn.setMinWidth(200);
-		barcodeColumn.setCellValueFactory(new PropertyValueFactory<>("barcode"));
-		TableColumn<Item, Double> priceColumn = new TableColumn<>("Price");
-		priceColumn.setMinWidth(200);
-		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-		
-		///ALL ITEMS stocksTable COMMON ATTRIBUTES
-		///////////////////////////////////////////
-		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
-		{
-			databaseName = "electronicStocks.txt";
-			///////////////////////////
-			//SET UP stocksTable
-			TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
-			brandColumn.setMinWidth(200);
-			brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
-			TableColumn<Item, String> categoryColumn = new TableColumn<>("Category");
-			categoryColumn.setMinWidth(200);
-			categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-			TableColumn<Item, Integer> discountColumn = new TableColumn<>("Discount");
-			discountColumn.setMinWidth(100);
-			discountColumn.setCellValueFactory(new PropertyValueFactory<>("discount"));
-			TableColumn<Item, Integer> warrantyColumn = new TableColumn<>("Warranty");
-			warrantyColumn.setMinWidth(100);
-			warrantyColumn.setCellValueFactory(new PropertyValueFactory<>("warranty"));
-			
-			stocksTable.setItems(allItemsAvailable);
-			stocksTable.getColumns().addAll(
-					nameColumn, 
-					barcodeColumn, 
-					priceColumn, 
-					brandColumn, 
-					categoryColumn, 
-					discountColumn, 
-					warrantyColumn);
-			//SET UP stocksTable
-			//////////////////////////
-		}
-		
-		else if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
-		{
-			databaseName = "bookStocks.txt";
-			///////////////////////////
-			//SET UP stocksTable
-			TableColumn<Item, String> authorColumn = new TableColumn<>("Author");
-			authorColumn.setMinWidth(200);
-			authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-			TableColumn<Item, Integer> isbnColumn = new TableColumn<>("ISBN");
-			isbnColumn.setMinWidth(300);
-			isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-			TableColumn<Item, String> publisherColumn = new TableColumn<>("Publisher");
-			publisherColumn.setMinWidth(200);
-			publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
-			TableColumn<Item, String> copyrightsColumn = new TableColumn<>("Copyrights");
-			copyrightsColumn.setMinWidth(200);
-			copyrightsColumn.setCellValueFactory(new PropertyValueFactory<>("copyrights"));
-			
-			stocksTable.setItems(allItemsAvailable);
-			stocksTable.getColumns().addAll(
-					nameColumn, 
-					barcodeColumn, 
-					priceColumn, 
-					authorColumn, 
-					isbnColumn, 
-					publisherColumn, 
-					copyrightsColumn);
-			//SET UP stocksTable
-			//////////////////////////
-		}
-		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
-		{
-			databaseName = "clothStocks.txt";
-			///////////////////////////
-			//SET UP stocksTable
-			TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
-			brandColumn.setMinWidth(200);
-			brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
-			TableColumn<Item, String> categoryColumn = new TableColumn<>("Category");
-			categoryColumn.setMinWidth(300);
-			categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-			TableColumn<Item, String> colorColumn = new TableColumn<>("Color");
-			colorColumn.setMinWidth(200);
-			colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
-			TableColumn<Item, String> sizeColumn = new TableColumn<>("Size");
-			sizeColumn.setMinWidth(200);
-			sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
-			
-			stocksTable.setItems(allItemsAvailable);
-			stocksTable.getColumns().addAll(
-					nameColumn, 
-					barcodeColumn, 
-					priceColumn, 
-					brandColumn, 
-					categoryColumn, 
-					colorColumn, 
-					sizeColumn);
-			//SET UP stocksTable
-			//////////////////////////
-		}
+
+
 		
 		stockManager = new StockManager(databaseName);
 		fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
@@ -402,27 +409,26 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	}
 	public void setUpItemRentalScene()
 	{
+		String database2 = "";
 		rentAnItemButton = new Button("Rent this item");
 		rentAnItemButton.setOnAction(e -> rentAnItemButtonClicked());
 		if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
 		{
 			databaseName = "bookStocks.txt";
-			stockManager = new StockManager(databaseName);
-			fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 			stocksTable.setItems(allItemsAvailable);
-			databaseName = "bookRental.txt";
+			database2 = "bookRental.txt";
 		}
 		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 		{
 			databaseName = "clothStocks.txt";
-			stockManager = new StockManager(databaseName);
-			fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
+			
 			stocksTable.setItems(allItemsAvailable);
-			databaseName = "clothRental.txt";
+			database2 = "clothRental.txt";
 		}
+		stockManager = new StockManager(databaseName);
+		fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 		
-		
-		rentalItemsManager = new StockManager(databaseName);
+		rentalItemsManager = new StockManager(database2);
 		fetchFromDatabaseIntoItemList(rentalItemsManager, rentalItems);
 		rentalItemsTable.setItems(rentalItems);
 		
@@ -471,11 +477,11 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	}
 	///SET UP SCENES
 	////////////////////////////////////////////
-	public void fetchFromDatabaseIntoItemList(StockManager stockManager, ObservableList<Item> myList)
+	public void fetchFromDatabaseIntoItemList(StockManager myManager, ObservableList<Item> myList)
 	{
 		myList.clear();
 		ArrayList<String> data = new ArrayList<>();
-		data = stockManager.returnData();
+		data = myManager.returnData();
 		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
 		{
 			for(int i=0; i<data.size(); i++)
