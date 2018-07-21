@@ -36,4 +36,8 @@ public class Bill {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String toString() {
+		return name + "-" + amount + "-" + issueDate + "-" + dueDate + "-" + description;
+	}
 }
