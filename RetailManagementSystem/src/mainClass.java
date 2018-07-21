@@ -1,5 +1,9 @@
 import controller.GeneralManager;
 import model.StockManager;
+import model.*;
+
+import javafx.scene.*;
+import javafx.scene.control.cell.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -9,8 +13,13 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.*;
 import model.StockManager;
 import javafx.geometry.*;
+import javafx.collections.*;
 
 public class mainClass extends Application implements EventHandler<ActionEvent> {
+	
+	//ITEMS
+	public ObservableList<Item> allItemsAvailable = FXCollections.observableArrayList();
+	TableView<Item> table;
 	
 	GeneralManager genMngr = new GeneralManager();
 	StockManager stockManager;
@@ -37,7 +46,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	PasswordField  passwordField = new PasswordField();// ("Password");
 	
 	//COMMON TEXT FIELDS
-	TextField nameField, property1Field, property2Field;
+	TextField nameField, property1Field, property2Field, property3Field, property4Field, property5Field;
 	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
 	
 	public static void main(String[] args)
@@ -113,11 +122,31 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		if(event.getSource()==button)
 		{
 			System.out.println("submitted");
-
+			//////////////////////////////////////////
+			///////ALL ITEMS TABLE COMMON ATTRIBUTES
+			TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
+			nameColumn.setMinWidth(200);
+			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+			TableColumn<Item, Integer> barcodeColumn = new TableColumn<>("Barcode");
+			barcodeColumn.setMinWidth(200);
+			barcodeColumn.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+			TableColumn<Item, Double> priceColumn = new TableColumn<>("Price");
+			priceColumn.setMinWidth(200);
+			priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+			///ALL ITEMS TABLE COMMON ATTRIBUTES
+			///////////////////////////////////////////
+			
 			//window.show();
 			System.out.println(shopTypeChoiceBox.getValue());
 			if(shopTypeChoiceBox.getValue()=="Electronics")
 			{
+				///////////////////////////
+				//SET UP TABLE
+				TableColumn<Item, String> brandColumn = new TableColumn<>("Name");
+				brandColumn.setMinWidth(200);
+				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
+				//SET UP TABLE
+				//////////////////////////
 				electronicsHomeLayout = new VBox(10);
 				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
 				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
@@ -167,36 +196,45 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		{
 			stocksManagementLayout = new VBox(10);
 			stocksManagementLayout.setPadding(new Insets(20,20,20,20));
-			stockSubmitButton = new Button("Submit stock");
+			stockSubmitButton = new Button("Add to Stock");
 			stockSubmitButton.setOnAction(this);
 			if(genMngr.shop_mode == genMngr.ELECSHOP)
 			{
 				stockManager = new StockManager("electronicStocks.txt");
 				nameField = new TextField("Electronic Name");
 				property1Field = new TextField("Serial number");
-				property2Field = new TextField("Warranty In Months");
-				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, stockSubmitButton);
+				property2Field = new TextField("Product Brand");
+				property3Field = new TextField("Discount");
+				property4Field = new TextField("Category");
+				property5Field = new TextField("Warranty In Months");
+				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,1000,1000);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.BOOKSHOP)
 			{
-				stockManager = new StockManager("electronicStocks.txt");
-				nameField = new TextField("Book Name");
+				stockManager = new StockManager("bookStocks.txt");
+				nameField = new TextField("Book Title");
 				property1Field = new TextField("ISBN");
 				property2Field = new TextField("Author");
-				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, stockSubmitButton);
+				property3Field = new TextField("Publisher");
+				property4Field = new TextField("Copyrights");
+				property5Field = new TextField("Age restriction");
+				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,750,750);
 				window.setScene(stocksManagementScene);
 			}
 			else if(genMngr.shop_mode == genMngr.CLOTHSHOP)
 			{
-				stockManager = new StockManager("electronicStocks.txt");
+				stockManager = new StockManager("clothStocks.txt");
 				nameField = new TextField("Cloth Name");
-				property1Field = new TextField("Cloth Size");
+				property1Field = new TextField("Size");
 				property2Field = new TextField("Color");
-
-				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, stockSubmitButton);
+				property3Field = new TextField("Brand Name");
+				property4Field = new TextField("Category");
+				property5Field = new TextField("Gender");
+				
+				stocksManagementLayout.getChildren().addAll(nameField, property1Field, property2Field, property3Field, property4Field, property5Field, stockSubmitButton);
 				stocksManagementScene = new Scene(stocksManagementLayout,500,500);
 			}
 			window.setScene(stocksManagementScene);
@@ -204,12 +242,18 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		
 		if(event.getSource() == stockSubmitButton)
 		{
-			String dataToAdd = nameField.getText() + " " + property1Field.getText() + " " + property2Field.getText();
+			String dataToAdd = nameField.getText() + " " + property1Field.getText() + " " + property2Field.getText() + " " + property3Field.getText() + " " + property4Field.getText() + " " + property5Field.getText();
+			allItemsAvailable.add(new ElecItem());
 			stockManager.addData(dataToAdd);
 		}
 		
 	}
-	
+	/*
+	public ObservableList<Item> getItems()
+	{
+		
+	}
+	*/
 	public void setUpPages()
 	{
 		
