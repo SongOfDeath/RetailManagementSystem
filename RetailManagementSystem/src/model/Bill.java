@@ -42,14 +42,11 @@ public class Bill {
 	}
 	
 	public boolean equals(Object bill) {
-		if (bill == null) {
+		if (bill == null || !(bill instanceof Bill)) {
 			return false;
 		}
 		if (bill == this) {
 			return true;
-		}
-		if (!(bill instanceof Bill)) {
-			return false;
 		}
 		Bill b = (Bill) bill;
 		boolean b1 = b.amount == this.amount;
