@@ -14,14 +14,19 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	GeneralManager genMngr = new GeneralManager();
 	
 	Stage window;
-	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
 	String storeType = "Electronics";
+
+	//SCENES
+	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
+	Scene electronicsStocksManagementScene, booksStocksManagementScene, clothesStocksManagementScene;
+	
 	//BUTTONS
 	Button button, addStockButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
 	
 	//LAYOUTS
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
-	VBox booksStockManagementLayout;
+	VBox electronicsStocksManagementLayout, booksStocksManagementLayout, clothesStocksManagementLayout;
+	//VBox booksStockManagementLayout;
 	TextField usernameField = new TextField("Username");
 	PasswordField  passwordField = new PasswordField();// ("Password");
 	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
@@ -152,6 +157,11 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		{
 			
 		}
+	}
+	
+	public void setUpPages()
+	{
+		
 	}
 	
 }
