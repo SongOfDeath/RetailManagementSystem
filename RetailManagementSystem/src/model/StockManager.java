@@ -16,10 +16,12 @@ import controller.GeneralManager;
 
 public class StockManager {
 		
+		String fileName;
 		ArrayList<Item> stocks;
 		ReadStockStrategy rss;
-		public StockManager()
+		public StockManager(String fileName)
 		{
+			this.fileName = fileName;
 			if(GeneralManager.shop_mode == GeneralManager.BOOKSHOP) {
 				//to do.........
 			}
@@ -29,7 +31,7 @@ public class StockManager {
 		public void addData(String dataString)
 		{
 			try {
-				FileWriter writer = new FileWriter("data/stocks.txt", true);
+				FileWriter writer = new FileWriter(fileName, true);
 				BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
 				//bufferedWriter.write("sülo");
@@ -52,7 +54,7 @@ public class StockManager {
 				///READ/////////////////////////
 				ArrayList<Integer> allScores = new ArrayList<Integer>();
 				ArrayList<String> allBooks = new ArrayList<String>();
-				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
 				String line = br.readLine();
 				line = br.readLine();
 				allScores.add(Integer.parseInt(line));
@@ -73,7 +75,7 @@ public class StockManager {
 				//SORT THE LIST
 				Collections.sort(allScores);
 				/// CLEAR THE FILE
-				PrintWriter pw = new PrintWriter("data/stocks.txt");
+				PrintWriter pw = new PrintWriter(fileName);
 				
 				
 		/*OLDOLDOLD		
@@ -95,7 +97,7 @@ public class StockManager {
 		{
 			String s = "";
 			try {
-				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
 				String line = br.readLine();
 				if(line!=null)
 				{
@@ -119,7 +121,7 @@ public class StockManager {
 				  throws IOException {
 				    String str = "Hello";
 				 
-				    Path path = Paths.get("data/stocks.txt");
+				    Path path = Paths.get(fileName);
 				    byte[] strToBytes = str.getBytes();
 				 
 				    Files.write(path, strToBytes);
@@ -127,6 +129,6 @@ public class StockManager {
 				    String read = Files.readAllLines(path).get(0);
 				    //assertEquals(str, read);
 				}
-		private String scoreFile = "data/stocks.txt";
+		private String scoreFile = fileName;
 
 }
