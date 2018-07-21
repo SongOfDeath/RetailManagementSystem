@@ -146,6 +146,9 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			}
 			System.out.println("submitted");
 			stocksTable = new TableView<>();
+			rentalItemsTable = new TableView<>();
+			usedGoodsResaleTable = new TableView<>();
+			repairItemsTable = new TableView<>();
 			setTextFields(); //Set up the pages
 
 			
@@ -402,13 +405,30 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		rentAnItemButton = new Button("Rent this item");
 		rentAnItemButton.setOnAction(e -> rentAnItemButtonClicked());
 		if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
-		databaseName = "bookRental.txt";
+		{
+			databaseName = "bookStocks.txt";
+			stockManager = new StockManager(databaseName);
+			fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
+			stocksTable.setItems(allItemsAvailable);
+			databaseName = "bookRental.txt";
+		}
 		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
-		databaseName = "clothRental.txt";
+		{
+			databaseName = "clothStocks.txt";
+			stockManager = new StockManager(databaseName);
+			fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
+			stocksTable.setItems(allItemsAvailable);
+			databaseName = "clothRental.txt";
+		}
+		
+		
 		rentalItemsManager = new StockManager(databaseName);
 		fetchFromDatabaseIntoItemList(rentalItemsManager, rentalItems);
-		itemRentalLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, rentAnItemButton, stocksTable, removeStockButton, returnToMenuButton);
+		rentalItemsTable.setItems(rentalItems);
+		
+		itemRentalLayout.getChildren().addAll(stocksTable, rentAnItemButton, rentalItemsTable, returnToMenuButton);
 		itemRentalScene = new Scene(itemRentalLayout, 900,900);
+		//*/
 	}
 	public void setUpItemRepairScene()
 	{
