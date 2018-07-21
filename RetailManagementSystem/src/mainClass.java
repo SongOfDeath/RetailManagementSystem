@@ -186,6 +186,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				
 				electronicsHomeLayout = new VBox(10);
 				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
+				electronicsHomeLayout.setStyle("-fx-background-color: red");
+				
 				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
 				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
@@ -235,7 +237,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
-
+				booksHomeLayout.setStyle("-fx-background-color: blue");
+				
 				booksHomeLayout.getChildren().addAll(
 						stocksManagementToolButton, 
 						takeCustomerFeedbackButton, 
@@ -292,6 +295,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				
 				clothesHomeLayout = new VBox(10);
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
+				clothesHomeLayout.setStyle("-fx-background-color: green");
+				
 				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
 				clothesHomeScene = new Scene(clothesHomeLayout, 500, 500);
 				window.setScene(clothesHomeScene);
