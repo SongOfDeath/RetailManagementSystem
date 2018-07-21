@@ -277,9 +277,10 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		///ADD TO STOCK
 		if(event.getSource() == stockSubmitButton)
 		{
-			String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText();
-			allItemsAvailable.add(new ElecItem());
+			String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText() + "-" + property6Field.getText();
+			
 			stockManager.addData(dataToAdd);
+			fetchFromDatabaseIntoItemList();
 		}
 		///ADD TO STOCK
 		//////////////////////
@@ -294,6 +295,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	
 	public void fetchFromDatabaseIntoItemList()
 	{
+		allItemsAvailable.clear();
 		ArrayList<String> data = new ArrayList<>();
 		data = stockManager.returnData();
 		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
@@ -302,7 +304,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
 				allItemsAvailable.add(new ElecItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),Integer.parseInt(list.get(5)),Integer.parseInt(list.get(6))));
-				allItemsAvailable.add(new ElecItem());
+				//allItemsAvailable.add(new ElecItem());
 				//allItemsAvailable.add(new Item(data.get(i).))
 				System.out.println(data.get(i));
 			}
