@@ -407,7 +407,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		databaseName = "clothRental.txt";
 		rentalItemsManager = new StockManager(databaseName);
 		fetchFromDatabaseIntoItemList(rentalItemsManager, rentalItems);
-		itemRentalLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
+		itemRentalLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, rentAnItemButton, stocksTable, removeStockButton, returnToMenuButton);
 		itemRentalScene = new Scene(itemRentalLayout, 900,900);
 	}
 	public void setUpItemRepairScene()
