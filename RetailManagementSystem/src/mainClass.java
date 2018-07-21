@@ -14,6 +14,7 @@ import javafx.stage.*;
 import model.StockManager;
 import javafx.geometry.*;
 import javafx.collections.*;
+import java.util.*;
 
 public class mainClass extends Application implements EventHandler<ActionEvent> {
 	
@@ -25,7 +26,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	StockManager stockManager;
 	Stage window;
 	String storeType = "Electronics";
-
+	String databaseName;
 	//PAGES
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
 	Scene electronicsStocksManagementScene, booksStocksManagementScene, clothesStocksManagementScene;
@@ -141,12 +142,13 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			
 			//window.show();
 			System.out.println(shopTypeChoiceBox.getValue());
-			
+			fetchFromDatabase();
 			/////////////////////////////////
 			/////SET UP ELECTRONICS SHOP
 			if(shopTypeChoiceBox.getValue()=="Electronics")
 			{
-				stockManager = new StockManager("electronicStocks.txt");
+				databaseName = "electronicStocks.txt";
+				stockManager = new StockManager(databaseName);
 				///////////////////////////
 				//SET UP TABLE
 				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
@@ -154,7 +156,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
 				
 				table.setItems(allItemsAvailable);
-				table.getColumns().addAll(nameColumn);
+				table.getColumns().addAll(nameColumn, barcodeColumn, priceColumn, brandColumn);
 				
 				//SET UP TABLE
 				//////////////////////////
@@ -173,6 +175,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			///SET UP BOOK SHOP
 			else if (shopTypeChoiceBox.getValue() == "Books")
 			{
+				databaseName = "bookStocks.txt";
 				stockManager = new StockManager("bookStocks.txt");
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
@@ -198,7 +201,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			///SET UP CLOTH SHOP
 			else if(shopTypeChoiceBox.getValue()=="Clothes")
 			{
-				stockManager = new StockManager("clothStocks.txt");
+				databaseName = "clothStocks.txt";
+				stockManager = new StockManager(databaseName);
 				clothesHomeLayout = new VBox(10);
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
 				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
@@ -272,6 +276,15 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		
 	}
 	*/
+	
+	public void fetchFromDatabase()
+	{
+		ArrayList<String> data = new ArrayList<>();
+		//data = stockManager.returnData();
+		//System.out.println(data);
+		//allItemsAvailable.add(e);
+	}
+	
 	public void setUpPages()
 	{
 		

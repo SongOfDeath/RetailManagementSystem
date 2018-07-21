@@ -1,8 +1,8 @@
 package controller;
 import model.*;
 public class GeneralManager {
-	public static final int BOOKSHOP = 0;
-	public static final int ELECSHOP = 1;
+	public static final int ELECSHOP = 0;
+	public static final int BOOKSHOP = 1;
 	public static final int CLOTHSHOP = 2;
 	public static int shop_mode;
 	

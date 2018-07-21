@@ -93,6 +93,46 @@ public class StockManager {
 			
 		}
 		
+		public ArrayList<String> returnData()
+		{
+			ArrayList<String> allItems = new ArrayList<>();
+			String s ="";
+			
+			try {
+				///READ/////////////////////////
+				//ArrayList<Integer> allScores = new ArrayList<Integer>();
+				//ArrayList<String> allBooks = new ArrayList<String>();
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
+				String line = br.readLine();
+				//line = br.readLine();
+				//allScores.add(Integer.parseInt(line));
+				//line = br.readLine();
+				//System.out.println(line);
+				while(line!=null)
+				{
+					allItems.add(line);
+					line = br.readLine();
+					
+					//System.out.println(line);
+					
+					//allScores.add(Integer.parseInt(line));
+					//int nextScore = Integer.parseInt(line);
+					//line = br.readLine();
+					//System.out.println(line);
+				}
+				
+				
+				br.close();
+				//SORT THE LIST
+				//Collections.sort(allScores);
+				/// CLEAR THE FILE
+				//PrintWriter pw = new PrintWriter(fileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return allItems;
+		}
+		
 		public String getHighScoreContents()
 		{
 			String s = "";
