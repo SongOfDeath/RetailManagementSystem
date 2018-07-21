@@ -10,25 +10,33 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ArrayList;
+import controller.GeneralManager;
+import controller.GeneralManager;
 
 public class StockManager {
 		
+		ArrayList<Item> stocks;
+		ReadStockStrategy rss;
 		public StockManager()
 		{
-			
+			if(GeneralManager.shop_mode == GeneralManager.BOOKSHOP) {
+				//to do.........
+			}
+			stocks = new ArrayList<>();
 		}
 		
-		public void addScore(int bookISBN)
+		public void addData(String dataString)
 		{
 			try {
-				FileWriter writer = new FileWriter("stocks.txt", true);
+				FileWriter writer = new FileWriter("data/stocks.txt", true);
 				BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
 				//bufferedWriter.write("sülo");
 				//bufferedWriter.append("asdas");
 				bufferedWriter.write("Name: BookName, BookISBN: 432543");
 				bufferedWriter.newLine();
-				bufferedWriter.write("" + bookISBN);
+				bufferedWriter.write("" + dataString);
 				bufferedWriter.newLine();
 				bufferedWriter.close();
 			} catch (IOException e) {
@@ -36,19 +44,17 @@ public class StockManager {
 			}	
 		}
 		
-		public void putScoreOnTable(int score)
+		public void putDataOnTable(String dataString)
 		{
-			addScore(score);
+			addData(dataString);
 			
 			try {
 				///READ/////////////////////////
 				ArrayList<Integer> allScores = new ArrayList<Integer>();
 				ArrayList<String> allBooks = new ArrayList<String>();
-				BufferedReader br = new BufferedReader(new FileReader("stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
 				String line = br.readLine();
-				//System.out.println(line);
 				line = br.readLine();
-				//System.out.println(line);
 				allScores.add(Integer.parseInt(line));
 				line = br.readLine();
 				//System.out.println(line);
@@ -67,18 +73,21 @@ public class StockManager {
 				//SORT THE LIST
 				Collections.sort(allScores);
 				/// CLEAR THE FILE
-				PrintWriter pw = new PrintWriter("stocks.txt");
+				PrintWriter pw = new PrintWriter("data/stocks.txt");
 				
+				
+		/*OLDOLDOLD		
 				/// WRITE THE SORTED SCORES TO THE TXT FILE
 				for(int i=allScores.size() - 1; i>=0; i--)
 				{
-					addScore(allScores.get(i));
+					addData(allScores.get(i));
 					//System.out.println("ALL SCORES " + allScores.get(i));
 				}
+				*/
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
+		
 			
 		}
 		
@@ -86,7 +95,7 @@ public class StockManager {
 		{
 			String s = "";
 			try {
-				BufferedReader br = new BufferedReader(new FileReader("stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
 				String line = br.readLine();
 				if(line!=null)
 				{
@@ -110,7 +119,7 @@ public class StockManager {
 				  throws IOException {
 				    String str = "Hello";
 				 
-				    Path path = Paths.get("stocks.txt");
+				    Path path = Paths.get("data/stocks.txt");
 				    byte[] strToBytes = str.getBytes();
 				 
 				    Files.write(path, strToBytes);
@@ -118,6 +127,6 @@ public class StockManager {
 				    String read = Files.readAllLines(path).get(0);
 				    //assertEquals(str, read);
 				}
-		private String scoreFile = "stocks.txt";
+		private String scoreFile = "data/stocks.txt";
 
 }
