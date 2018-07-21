@@ -166,9 +166,12 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			
 			///ALL ITEMS stocksTable COMMON ATTRIBUTES
 			///////////////////////////////////////////
+			
 			if(genMngr.shop_mode == GeneralManager.ELECSHOP)
 			{
 				databaseName = "electronicStocks.txt";
+				stockManager = new StockManager(databaseName);
+				fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 				///////////////////////////
 				//SET UP stocksTable
 				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
@@ -201,6 +204,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			else if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
 			{
 				databaseName = "bookStocks.txt";
+				stockManager = new StockManager(databaseName);
+				fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 				///////////////////////////
 				//SET UP stocksTable
 				TableColumn<Item, String> authorColumn = new TableColumn<>("Author");
@@ -232,6 +237,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 			{
 				databaseName = "clothStocks.txt";
+				stockManager = new StockManager(databaseName);
+				fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 				///////////////////////////
 				//SET UP stocksTable
 				TableColumn<Item, String> brandColumn = new TableColumn<>("Brand");
@@ -399,11 +406,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	///SET UP SCENES
 	public void setUpStocksManagementScene()
 	{
-
-
-		
-		stockManager = new StockManager(databaseName);
-		fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 		stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
 		stocksManagementScene = new Scene(stocksManagementLayout,750,500);
 	}
@@ -425,7 +427,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			stocksTable.setItems(allItemsAvailable);
 			database2 = "clothRental.txt";
 		}
-		stockManager = new StockManager(databaseName);
+		//stockManager = new StockManager(databaseName);
 		fetchFromDatabaseIntoItemList(stockManager, allItemsAvailable);
 		
 		rentalItemsManager = new StockManager(database2);
@@ -550,14 +552,20 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	{
 		if(genMngr.shop_mode == GeneralManager.ELECSHOP)
 		{
+			//itemRentalLayout.getChildren().clear();
+			//stocksManagementLayout.getChildren().clear();
 			window.setScene(electronicsHomeScene);
 		}
 		else if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
 		{
+			//itemRentalLayout.getChildren().clear();
+			//stocksManagementLayout.getChildren().clear();
 			window.setScene(booksHomeScene);
 		}
 		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 		{
+			//itemRentalLayout.getChildren().clear();
+			//stocksManagementLayout.getChildren().clear();
 			window.setScene(clothesHomeScene);
 		}
 	}
