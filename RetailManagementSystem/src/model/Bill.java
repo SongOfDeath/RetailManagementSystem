@@ -7,7 +7,7 @@ public class Bill {
 	String dueDate;
 	String issueDate;
 	//Constructor
-	public Bill(){
+	public Bill() {
 		amount = -1;
 		name = "";
 		description = "";
@@ -35,5 +35,9 @@ public class Bill {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String toString() {
+		return name + "-" + amount + "-" + issueDate + "-" + dueDate + "-" + description;
 	}
 }
