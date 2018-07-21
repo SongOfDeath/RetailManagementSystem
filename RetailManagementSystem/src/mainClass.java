@@ -1,4 +1,3 @@
-import controller.GeneralManager;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -6,12 +5,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.*;
-import model.StockManager;
 import javafx.geometry.*;
-
 public class mainClass extends Application implements EventHandler<ActionEvent> {
-	
-	GeneralManager genMngr = new GeneralManager();
 	
 	Stage window;
 	String storeType = "Electronics";
@@ -113,32 +108,15 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
 				storeType = "Electronics";
-				//setMode
-				genMngr.shop_mode = GeneralManager.ELECSHOP;
 			}
 			else if (shopTypeChoiceBox.getValue() == "Books")
 			{
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
-				booksHomeLayout.getChildren().addAll(
-						addStockButton, 
-						stocksManagementToolButton, 
-						takeCustomerFeedbackButton, 
-						billingManagementToolButton, 
-						salesManagementToolButton, 
-						promotionsManagementButton, 
-						usedGoodsResaleButton, 
-						itemRentalButton);
-
 				booksHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
-
-				booksHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton);
-
 				booksHomeScene = new Scene(booksHomeLayout, 500, 500);
 				window.setScene(booksHomeScene);
 				storeType = "Books";
-				//setMode
-				genMngr.shop_mode = GeneralManager.BOOKSHOP;
 			}
 			else if(shopTypeChoiceBox.getValue()=="Clothes")
 			{
@@ -148,8 +126,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				clothesHomeScene = new Scene(clothesHomeLayout, 500, 500);
 				window.setScene(clothesHomeScene);
 				storeType = "Clothes";
-				//setMode
-				genMngr.shop_mode = GeneralManager.CLOTHSHOP;
 			}
 		}
 		

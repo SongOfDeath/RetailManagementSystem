@@ -1,4 +1,0 @@
-Book490 44095 12.99 Auth 12345 publsh rights
-Book491 44092 12.99 Auth 12346 publsh rights
-Book492 44096 12.99 Auth 12347 publsh rights
-Book493 44094 12.99 Auth 12348 publsh rights

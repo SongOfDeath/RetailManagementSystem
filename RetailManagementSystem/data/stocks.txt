@@ -1,2 +1,0 @@
-Name: BookName, BookISBN: 432543
-mahir özer
