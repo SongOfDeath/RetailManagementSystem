@@ -21,6 +21,19 @@ public class StockManager {
 		ReadStockStrategy rss;
 		public StockManager(String fileName)
 		{
+			/////////////////////////////////////////////////////////
+			///CREATE NEW DATABASE IN CASE THERE IS NO DATABASE YET
+			try {
+				FileWriter writer = new FileWriter(fileName, true);
+				BufferedWriter bufferedWriter = new BufferedWriter(writer);
+				bufferedWriter.write("");
+				bufferedWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			///CREATE NEW DATABASE IN CASE THERE IS NO DATABASE YET
+			/////////////////////////////////////////////////////////
+			
 			this.fileName = fileName;
 			if(GeneralManager.shop_mode == GeneralManager.BOOKSHOP) {
 				//to do.........
@@ -33,7 +46,7 @@ public class StockManager {
 			try {
 				FileWriter writer = new FileWriter(fileName, true);
 				BufferedWriter bufferedWriter = new BufferedWriter(writer);
-
+				bufferedWriter.write("");
 				//bufferedWriter.write("sülo");
 				//bufferedWriter.append("asdas");
 				//bufferedWriter.write("Name: BookName, BookISBN: 432543");

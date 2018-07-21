@@ -304,8 +304,15 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
 				allItemsAvailable.add(new ElecItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),Integer.parseInt(list.get(5)),Integer.parseInt(list.get(6))));
-				//allItemsAvailable.add(new ElecItem());
-				//allItemsAvailable.add(new Item(data.get(i).))
+				System.out.println(data.get(i));
+			}
+		}
+		if(genMngr.shop_mode == GeneralManager.BOOKSHOP)
+		{
+			for(int i=0; i<data.size(); i++)
+			{
+				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
+				allItemsAvailable.add(new BookItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),Integer.parseInt(list.get(4)),list.get(5),list.get(6)));
 				System.out.println(data.get(i));
 			}
 		}
