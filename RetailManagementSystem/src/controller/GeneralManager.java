@@ -14,8 +14,23 @@ public class GeneralManager {
 	private static SalesManager saleManager;
 	private static ShippingManager shippingManager;
 
+	CustomerControl custControl;
+	String salesfile;
 	
 	public GeneralManager() {
-		
+		custControl = new CustomerControl();
+		if(GeneralManager.shop_mode == GeneralManager.ELECSHOP) {
+			salesfile = "electronicSales.txt";
+		}
+		else if(GeneralManager.shop_mode == GeneralManager.BOOKSHOP) {
+			salesfile = "bookSales.txt";
+		}
+		else {
+			salesfile = "clothSales.txt";
+		}
+	}
+	
+	public String getSalesFile() {
+		return salesfile;
 	}
 }

@@ -26,9 +26,10 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	public ObservableList<Item> rentalItems = FXCollections.observableArrayList();
 	public ObservableList<Item> usedGoods = FXCollections.observableArrayList();
 	public ObservableList<Item> itemsForRepair = FXCollections.observableArrayList();
-	TableView<Item> stocksTable, rentalItemsTable, usedGoodsResaleTable, repairItemsTable;
+	TableView<Item> stocksTable, rentalItemsTable, usedGoodsResaleTable, repairItemsTable, salesInvoiceTable;
 	
 	GeneralManager genMngr = new GeneralManager();
+	SalesManager saleMngr = new SalesManager(genMngr);
 	StockManager stockManager;
 	StockManager rentalItemsManager;
 	StockManager usedGoodsManager;
@@ -39,11 +40,12 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	//PAGES
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
 	//COMMON PAGES AND LAYOUTS
-	Scene stocksManagementScene, itemRentalScene, itemRepairScene, usedGoodsResaleScene;
-	VBox stocksManagementLayout, itemRentalLayout, itemRepairLayout, usedGoodsResaleLayout;
+	Scene stocksManagementScene, itemRentalScene, itemRepairScene, usedGoodsResaleScene, salesManagerScene;
+	VBox stocksManagementLayout, itemRentalLayout, itemRepairLayout, usedGoodsResaleLayout, salesManagerLayout;
 	//BUTTONS
-	Button button, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
+	Button button, salesManagementButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
 	Button rentAnItemButton;
+	Button createInvoice, addSalesItem, generateReceipt;
 	//COMMON BUTTONS
 	Button stockSubmitButton, removeStockButton, returnToMenuButton;
 	//LAYOUTS
@@ -82,6 +84,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		returnToMenuButton.setOnAction(e -> returnToMenu());
 		//addStockButton = new Button("Add Stock");
 		//button.setOnAction(this);
+		salesManagementButton = new Button("Sales Management Tool");
+		salesManagementButton.setOnAction(this);
 		stocksManagementToolButton = new Button("Stocks Management Tool");
 		stocksManagementToolButton.setOnAction(e -> stocksManagementToolButtonClicked());
 		takeCustomerFeedbackButton = new Button("Take Customer Feedback");
@@ -145,6 +149,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				genMngr.shop_mode = GeneralManager.CLOTHSHOP;
 			}
 			System.out.println("submitted");
+			salesInvoiceTable = new TableView<>();
 			stocksTable = new TableView<>();
 			rentalItemsTable = new TableView<>();
 			usedGoodsResaleTable = new TableView<>();
@@ -166,6 +171,20 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			
 			///ALL ITEMS stocksTable COMMON ATTRIBUTES
 			///////////////////////////////////////////
+			
+			/* SALES MANAGER TABLE PROPERTIES */
+			TableColumn<Item, Integer> invIDColumn = new TableColumn<>("Invoice ID");
+			invIDColumn.setMinWidth(100);
+			invIDColumn.setCellValueFactory(new PropertyValueFactory<>("Invoice ID"));
+			TableColumn<Item, Integer> custIDCoulumn = new TableColumn<>("Customer ID");
+			custIDCoulumn.setMinWidth(100);
+			custIDCoulumn.setCellValueFactory(new PropertyValueFactory<>("Customer ID"));
+			TableColumn<Item, Integer> TotalColumn = new TableColumn<>("Total Price");
+			TotalColumn.setMinWidth(100);
+			TotalColumn.setCellValueFactory(new PropertyValueFactory<>("Total Price"));
+			TableColumn<Item, Integer> itemsColumn = new TableColumn<>("Items Listing");
+			itemsColumn.setMinWidth(100);
+			itemsColumn.setCellValueFactory(new PropertyValueFactory<>("Items Listing"));
 			
 			if(genMngr.shop_mode == GeneralManager.ELECSHOP)
 			{
@@ -407,7 +426,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	public void setUpStocksManagementScene()
 	{
 		stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
-		stocksManagementScene = new Scene(stocksManagementLayout,750,500);
+		stocksManagementScene = new Scene(stocksManagementLayout,900,500);
 	}
 	public void setUpItemRentalScene()
 	{

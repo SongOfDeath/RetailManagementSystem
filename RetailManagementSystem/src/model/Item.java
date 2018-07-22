@@ -8,6 +8,7 @@ public class Item {
 	
 	//CONSTRUCTORS
 	public Item() {
+		name = "";
 		barcode = -1;
 		price = -1;
 	}

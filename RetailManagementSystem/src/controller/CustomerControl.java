@@ -11,7 +11,6 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import model.Customer;
-import model.ElecItem;
 
 public class CustomerControl {
 	
