@@ -1,8 +1,10 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,6 +43,8 @@ public class SalesManager {
 					temp.addItem(tempItem);
 				}
 				temp.generateTotal();
+				temp.returnItemsString();
+				System.out.println(temp.returnItemsString());
 				invoicelist.add(temp);
 			}
 			sc.close();
@@ -74,7 +78,6 @@ public class SalesManager {
 	
 	
 	
-	
 	public void updateTextFile() throws IOException {
 		PrintWriter pwriter = new PrintWriter(filename);
 		pwriter.print("");
@@ -95,11 +98,31 @@ public class SalesManager {
 		bufferedWriter.close();
 	}
 	
+	public ArrayList<Invoice> getInvoiceList(){
+		return this.invoicelist;
+	}
 	
 	public void printList() {
 		for(int i=0; i<invoicelist.size(); i++) {
 			System.out.println(invoicelist.get(i).invoiceID);
 			invoicelist.get(i).printItemList();
 		}
+	}
+	
+	public ArrayList<String> returnData()
+	{
+		ArrayList<String> allItems = new ArrayList<>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			String line = br.readLine();
+			while(line!=null){
+				allItems.add(line);
+				line = br.readLine();
+			}	
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return allItems;
 	}
 }

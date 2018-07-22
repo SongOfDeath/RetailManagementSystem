@@ -20,16 +20,18 @@ import java.util.*;
 
 public class mainClass extends Application implements EventHandler<ActionEvent> {
 	
-	boolean stocksSetUp = false, itemRentalSetUp = false, usedGoodsResaleSetUp = false, itemRepairSetUp = false;
+	boolean stocksSetUp = false, itemRentalSetUp = false, usedGoodsResaleSetUp = false, itemRepairSetUp = false, salesSetUp = false;
 	//ITEMS
 	public ObservableList<Item> allItemsAvailable = FXCollections.observableArrayList();
 	public ObservableList<Item> rentalItems = FXCollections.observableArrayList();
 	public ObservableList<Item> usedGoods = FXCollections.observableArrayList();
 	public ObservableList<Item> itemsForRepair = FXCollections.observableArrayList();
-	TableView<Item> stocksTable, rentalItemsTable, usedGoodsResaleTable, repairItemsTable, salesInvoiceTable;
+	public ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+	TableView<Item> stocksTable, rentalItemsTable, usedGoodsResaleTable, repairItemsTable;
+	TableView<Invoice> salesTable;
 	
 	GeneralManager genMngr = new GeneralManager();
-	SalesManager saleMngr = new SalesManager(genMngr);
+	SalesManager salesManager = new SalesManager(genMngr);
 	StockManager stockManager;
 	StockManager rentalItemsManager;
 	StockManager usedGoodsManager;
@@ -40,8 +42,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	//PAGES
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
 	//COMMON PAGES AND LAYOUTS
-	Scene stocksManagementScene, itemRentalScene, itemRepairScene, usedGoodsResaleScene, salesManagerScene;
-	VBox stocksManagementLayout, itemRentalLayout, itemRepairLayout, usedGoodsResaleLayout, salesManagerLayout;
+	Scene stocksManagementScene, itemRentalScene, itemRepairScene, usedGoodsResaleScene, salesManagementScene;
+	VBox stocksManagementLayout, salesManagementLayout, itemRentalLayout, itemRepairLayout, usedGoodsResaleLayout, salesManagerLayout;
 	//BUTTONS
 	Button button, salesManagementButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
 	Button rentAnItemButton;
@@ -58,6 +60,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	
 	//COMMON TEXT FIELDS
 	TextField property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field;
+	TextField invIDField, custIDField;
 	ChoiceBox<String> shopTypeChoiceBox = new ChoiceBox<>();
 	
 	public static void main(String[] args)
@@ -85,7 +88,10 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		//addStockButton = new Button("Add Stock");
 		//button.setOnAction(this);
 		salesManagementButton = new Button("Sales Management Tool");
-		salesManagementButton.setOnAction(this);
+		salesManagementButton.setOnAction(e -> salesManagementToolButtonClicked());
+		createInvoice = new Button("Create Invoice");
+		addSalesItem = new Button("Add Item");
+		generateReceipt = new Button("Generate Reciept");
 		stocksManagementToolButton = new Button("Stocks Management Tool");
 		stocksManagementToolButton.setOnAction(e -> stocksManagementToolButtonClicked());
 		takeCustomerFeedbackButton = new Button("Take Customer Feedback");
@@ -149,7 +155,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				genMngr.shop_mode = GeneralManager.CLOTHSHOP;
 			}
 			System.out.println("submitted");
-			salesInvoiceTable = new TableView<>();
+			salesTable = new TableView<>();
 			stocksTable = new TableView<>();
 			rentalItemsTable = new TableView<>();
 			usedGoodsResaleTable = new TableView<>();
@@ -173,20 +179,28 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			///////////////////////////////////////////
 			
 			/* SALES MANAGER TABLE PROPERTIES */
-			TableColumn<Item, Integer> invIDColumn = new TableColumn<>("Invoice ID");
+			TableColumn<Invoice, Integer> invIDColumn = new TableColumn<>("Invoice ID");
 			invIDColumn.setMinWidth(100);
-			invIDColumn.setCellValueFactory(new PropertyValueFactory<>("Invoice ID"));
-			TableColumn<Item, Integer> custIDCoulumn = new TableColumn<>("Customer ID");
-			custIDCoulumn.setMinWidth(100);
-			custIDCoulumn.setCellValueFactory(new PropertyValueFactory<>("Customer ID"));
-			TableColumn<Item, Integer> TotalColumn = new TableColumn<>("Total Price");
+			invIDColumn.setCellValueFactory(new PropertyValueFactory<>("invoiceID"));
+			TableColumn<Invoice, Integer> custIDColumn = new TableColumn<>("Customer ID");
+			custIDColumn.setMinWidth(100);
+			custIDColumn.setCellValueFactory(new PropertyValueFactory<>("custId"));
+			TableColumn<Invoice, Integer> TotalColumn = new TableColumn<>("Total Price");
 			TotalColumn.setMinWidth(100);
-			TotalColumn.setCellValueFactory(new PropertyValueFactory<>("Total Price"));
-			TableColumn<Item, Integer> itemsColumn = new TableColumn<>("Items Listing");
+			TotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalprice"));
+			TableColumn<Invoice, String> itemsColumn = new TableColumn<>("Items");
 			itemsColumn.setMinWidth(100);
-			itemsColumn.setCellValueFactory(new PropertyValueFactory<>("Items Listing"));
+			itemsColumn.setCellValueFactory(new PropertyValueFactory<>("stringOfItems"));
 			
-			if(genMngr.shop_mode == GeneralManager.ELECSHOP)
+			ArrayList<Invoice> invList = salesManager.getInvoiceList();
+			for(int ind = 0; ind < invList.size(); ind++) {
+				invoices.add(invList.get(ind));
+			}
+			salesTable.setItems(invoices);
+			salesTable.getColumns().addAll(invIDColumn, custIDColumn, TotalColumn, itemsColumn);
+			
+			
+			if(GeneralManager.shop_mode == GeneralManager.ELECSHOP)
 			{
 				databaseName = "electronicStocks.txt";
 				stockManager = new StockManager(databaseName);
@@ -301,7 +315,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
 				electronicsHomeLayout.setStyle("-fx-background-color: red");
 				
-				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
+				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, salesManagementButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
 				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
 				storeType = "Electronics";
@@ -314,15 +328,13 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			///SET UP BOOK SHOP
 			else if (genMngr.shop_mode == GeneralManager.BOOKSHOP)
 			{
-				
-
-				
 				booksHomeLayout = new VBox(10);
 				booksHomeLayout.setPadding(new Insets(20,20,20,20));
 				booksHomeLayout.setStyle("-fx-background-color: blue");
 				
 				booksHomeLayout.getChildren().addAll(
-						stocksManagementToolButton, 
+						stocksManagementToolButton,
+						salesManagementButton,
 						takeCustomerFeedbackButton, 
 						billingManagementToolButton, 
 						salesManagementToolButton, 
@@ -350,7 +362,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
 				clothesHomeLayout.setStyle("-fx-background-color: green");
 				
-				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
+				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, salesManagementButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
 				clothesHomeScene = new Scene(clothesHomeLayout, 500, 500);
 				window.setScene(clothesHomeScene);
 				//storeType = "Clothes";
@@ -362,18 +374,14 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 
 		
 	}
-	/*
-	public ObservableList<Item> getItems()
-	{
-		
-	}
-	*/
+
 	public void setTextFields()
 	{
 		removeStockButton = new Button("Remove Stock");
 		removeStockButton.setOnAction(e -> removeStockButtonClicked());
 		
-		
+		salesManagementLayout = new VBox(10);
+		salesManagementLayout.setPadding(new Insets(20,20,20,20));
 		stocksManagementLayout = new VBox(10);
 		stocksManagementLayout.setPadding(new Insets(20,20,20,20));
 		itemRentalLayout = new VBox(10);
@@ -420,6 +428,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			property5Field = new TextField("Color");
 			property6Field = new TextField("Size");
 		}
+		invIDField = new TextField("Invoice ID");
+		custIDField = new TextField("Customer ID");
 	}
 	////////////////////////////////////////////////////
 	///SET UP SCENES
@@ -427,6 +437,11 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	{
 		stocksManagementLayout.getChildren().addAll(property0Field, property1Field, property2Field, property3Field, property4Field, property5Field, property6Field, stockSubmitButton, stocksTable, removeStockButton, returnToMenuButton);
 		stocksManagementScene = new Scene(stocksManagementLayout,900,500);
+	}
+	public void setUpSalesManagementScene()
+	{
+		salesManagementLayout.getChildren().addAll(returnToMenuButton, invIDField, custIDField, salesTable, createInvoice, addSalesItem, generateReceipt);
+		salesManagementScene = new Scene(salesManagementLayout,900,500);
 	}
 	public void setUpItemRentalScene()
 	{
@@ -475,6 +490,13 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		stocksSetUp=true;
 		window.setScene(stocksManagementScene);
 	}
+	public void salesManagementToolButtonClicked()
+	{
+		if(salesSetUp==false)
+		setUpSalesManagementScene();
+		salesSetUp=true;
+		window.setScene(salesManagementScene);
+	}
 	public void itemRentalButtonClicked()
 	{
 		if(itemRentalSetUp==false)
@@ -498,6 +520,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	}
 	///SET UP SCENES
 	////////////////////////////////////////////
+	
 	public void fetchFromDatabaseIntoItemList(StockManager myManager, ObservableList<Item> myList)
 	{
 		myList.clear();
@@ -589,10 +612,5 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		}
 	}
 	
-	
-	public void setUpCommonStocksManagementLayout()
-	{
-		
-	}
 	
 }

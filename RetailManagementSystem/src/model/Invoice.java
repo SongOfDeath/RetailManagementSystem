@@ -7,6 +7,7 @@ public class Invoice {
 	int custId;
 	double totalprice;
 	ArrayList<Item> items;
+	String stringOfItems;
 	
 	
 	public Invoice(int invID, int custID) {
@@ -14,10 +15,12 @@ public class Invoice {
 		this.invoiceID = invID;
 		this.custId = custID;
 		totalprice = 0;
+		stringOfItems = "";
 	}
 	
 	public void addItem(Item item) {
 		items.add(item);
+		stringOfItems = stringOfItems + item.returnItemData();
 	}
 	
 	public double generateTotal(){
@@ -57,6 +60,14 @@ public class Invoice {
 		this.totalprice = totalprice;
 	}
 
+	public String returnItemsString() {
+		stringOfItems = "";
+		for(int i=0; i<items.size(); i++) {
+			stringOfItems = stringOfItems + items.get(i).returnItemData() + "  ";
+		}
+		return stringOfItems;
+	}
+	
 	@Override
 	public String toString() {
 		return "Invoice [invoiceID=" + invoiceID + ", custId=" + custId + ", totalprice=" + totalprice + ", items="

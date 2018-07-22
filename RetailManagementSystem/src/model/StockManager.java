@@ -18,7 +18,6 @@ public class StockManager {
 		
 		String fileName;
 		ArrayList<Item> stocks;
-		ReadStockStrategy rss;
 		public StockManager(String fileName)
 		{
 			/////////////////////////////////////////////////////////
@@ -35,9 +34,6 @@ public class StockManager {
 			/////////////////////////////////////////////////////////
 			
 			this.fileName = fileName;
-			if(GeneralManager.shop_mode == GeneralManager.BOOKSHOP) {
-				//to do.........
-			}
 			stocks = new ArrayList<>();
 		}
 		
@@ -126,18 +122,10 @@ public class StockManager {
 		public ArrayList<String> returnData()
 		{
 			ArrayList<String> allItems = new ArrayList<>();
-			//allItems.add("abc");
-
 			try {
 				///READ/////////////////////////
-				//ArrayList<Integer> allScores = new ArrayList<Integer>();
-				//ArrayList<String> allBooks = new ArrayList<String>();
 				BufferedReader br = new BufferedReader(new FileReader(fileName));
 				String line = br.readLine();
-				//line = br.readLine();
-				//allScores.add(Integer.parseInt(line));
-				//line = br.readLine();
-				//System.out.println(line);
 				
 				while(line!=null)
 				{
