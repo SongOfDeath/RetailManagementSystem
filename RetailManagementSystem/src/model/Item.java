@@ -8,6 +8,7 @@ public class Item {
 	
 	//CONSTRUCTORS
 	public Item() {
+		name = "";
 		barcode = -1;
 		price = -1;
 	}
@@ -16,6 +17,13 @@ public class Item {
 		this.barcode = barcode;
 		this.price = price;
 	}
+
+	public String returnItemData()
+	{
+		String s = name + "-" + barcode + "-" + price;
+		return s;
+	}
+	
 	//GETTERS
 	public String getName() {
 		return this.name;

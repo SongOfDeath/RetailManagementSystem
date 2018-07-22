@@ -7,6 +7,14 @@ public class ElecItem extends Item{
 	int discount;
 	int warrantyInMonths;
 	
+	
+	public ElecItem()
+	{
+		brand = "Siemens";
+		category = "Computer";
+		discount = 0;
+		warrantyInMonths = 3;
+	}
 	// Constructor
 	public ElecItem(String name, int barcode, double price, String brand, String category, int discount, int warranty) {
 		super(name, barcode, price);
@@ -22,6 +30,12 @@ public class ElecItem extends Item{
 				+ warrantyInMonths + ", name=" + name + ", barcode=" + barcode + ", price=" + price + "]";
 	}
 
+	@Override
+	public String returnItemData()
+	{
+		String s = name + "-" + barcode + "-" + price + "-" + brand + "-" + category + "-" + discount + "-" + warrantyInMonths;
+		return s;
+	}
 	//GETTERS
 	public String getBrand() {
 		return brand;

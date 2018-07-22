@@ -12,26 +12,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ArrayList;
 import controller.GeneralManager;
+import controller.GeneralManager;
 
 public class StockManager {
 		
+		String fileName;
 		ArrayList<Item> stocks;
-		
-		public StockManager()
+		public StockManager(String fileName)
 		{
+			/////////////////////////////////////////////////////////
+			///CREATE NEW DATABASE IN CASE THERE IS NO DATABASE YET
+			try {
+				FileWriter writer = new FileWriter(fileName, true);
+				BufferedWriter bufferedWriter = new BufferedWriter(writer);
+				bufferedWriter.write("");
+				bufferedWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			///CREATE NEW DATABASE IN CASE THERE IS NO DATABASE YET
+			/////////////////////////////////////////////////////////
+			
+			this.fileName = fileName;
 			stocks = new ArrayList<>();
 		}
 		
 		public void addData(String dataString)
 		{
 			try {
-				FileWriter writer = new FileWriter("data/stocks.txt", true);
+				FileWriter writer = new FileWriter(fileName, true);
 				BufferedWriter bufferedWriter = new BufferedWriter(writer);
-
+				bufferedWriter.write("");
 				//bufferedWriter.write("sülo");
 				//bufferedWriter.append("asdas");
-				bufferedWriter.write("Name: BookName, BookISBN: 432543");
-				bufferedWriter.newLine();
+				//bufferedWriter.write("Name: BookName, BookISBN: 432543");
+				//bufferedWriter.newLine();
 				bufferedWriter.write("" + dataString);
 				bufferedWriter.newLine();
 				bufferedWriter.close();
@@ -48,7 +63,7 @@ public class StockManager {
 				///READ/////////////////////////
 				ArrayList<Integer> allScores = new ArrayList<Integer>();
 				ArrayList<String> allBooks = new ArrayList<String>();
-				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
 				String line = br.readLine();
 				line = br.readLine();
 				allScores.add(Integer.parseInt(line));
@@ -69,8 +84,7 @@ public class StockManager {
 				//SORT THE LIST
 				Collections.sort(allScores);
 				/// CLEAR THE FILE
-				PrintWriter pw = new PrintWriter("data/stocks.txt");
-				
+				PrintWriter pw = new PrintWriter(fileName);
 				
 		/*OLDOLDOLD		
 				/// WRITE THE SORTED SCORES TO THE TXT FILE
@@ -87,11 +101,62 @@ public class StockManager {
 			
 		}
 		
+		public void clearStockTable()
+		{
+			try {
+				PrintWriter pw = new PrintWriter(fileName);
+				pw.close();
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void setFileName(String fileName)
+		{
+			this.fileName = fileName;
+		}
+		public void testMe()
+		{
+			System.out.println(" test me ");
+		}
+		public ArrayList<String> returnData()
+		{
+			ArrayList<String> allItems = new ArrayList<>();
+			try {
+				///READ/////////////////////////
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
+				String line = br.readLine();
+				
+				while(line!=null)
+				{
+					allItems.add(line);
+					line = br.readLine();
+					
+					//System.out.println(line);
+					
+					//allScores.add(Integer.parseInt(line));
+					//int nextScore = Integer.parseInt(line);
+					//line = br.readLine();
+					//System.out.println(line);
+				}
+				
+				br.close();
+				//SORT THE LIST
+				//Collections.sort(allScores);
+				/// CLEAR THE FILE
+				//PrintWriter pw = new PrintWriter(fileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return allItems;
+		}
+		
 		public String getHighScoreContents()
 		{
 			String s = "";
 			try {
-				BufferedReader br = new BufferedReader(new FileReader("data/stocks.txt"));
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
 				String line = br.readLine();
 				if(line!=null)
 				{
@@ -115,7 +180,7 @@ public class StockManager {
 				  throws IOException {
 				    String str = "Hello";
 				 
-				    Path path = Paths.get("data/stocks.txt");
+				    Path path = Paths.get(fileName);
 				    byte[] strToBytes = str.getBytes();
 				 
 				    Files.write(path, strToBytes);
@@ -123,6 +188,6 @@ public class StockManager {
 				    String read = Files.readAllLines(path).get(0);
 				    //assertEquals(str, read);
 				}
-		private String scoreFile = "data/stocks.txt";
+		private String scoreFile = fileName;
 
 }
