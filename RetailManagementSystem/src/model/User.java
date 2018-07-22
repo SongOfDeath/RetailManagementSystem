@@ -10,6 +10,11 @@ public class User {
 		password = -1;
 		manager = false;
 	}
+	public User(String name, int password, boolean manager) {
+		this.name = name;
+		this.password = password;
+		this.manager = manager;
+	}
 	//Getter
 	public int getPassword() {
 		return password;
