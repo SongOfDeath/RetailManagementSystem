@@ -1,24 +1,28 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Customer {
 	int ID;
 	String address;
-	Invoice invoice;
 	int contactNum;
-	int orderNum;
-	int []orderHistory;
+	ArrayList<Integer> orderHistory;
+	
 	//Constructor
 	public Customer() {
 		ID = -1;
-		orderNum = 0;
 		contactNum = -1;
 		address = "";
-		orderHistory = new int[orderNum];
+		orderHistory = new ArrayList<>();
 	}
+	
+	public Customer(int ID, String address, int contactNum) {
+		this.ID = ID;
+		this.address = address;
+		this.contactNum = contactNum;
+	}
+	
 	//Setter
-	public void setOrderhistory(int orderNum) {
-		this.orderNum = orderNum;
-	}
 	public void setID(int ID) {
 		this.ID = ID;
 	}
@@ -38,10 +42,24 @@ public class Customer {
 	public int getContactnum() {
 		return contactNum;
 	}
-	public Invoice getInvoice() {
-		return invoice;
+	
+	public void addOrderNo(int num) {
+		this.orderHistory.add(num);
+	}
+	
+	public boolean searchOrder(int num) {
+		for(int i = 0; i < orderHistory.size(); i++) {
+			if(orderHistory.get(i) == num)
+				return true;
+		}
+		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [ID=" + ID + ", address=" + address + ", contactNum=" + contactNum + ", orderHistory="
+				+ orderHistory + "]";
+	}
 
 }
 
