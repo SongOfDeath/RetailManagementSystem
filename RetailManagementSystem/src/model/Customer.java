@@ -1,25 +1,27 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Customer {
 	int ID;
 	String address;
 	int contactNum;
-	ArrayList<Integer> orderHistory;
+	String orderHistory;
 	
 	//Constructor
 	public Customer() {
 		ID = -1;
 		contactNum = -1;
-		address = "";
-		orderHistory = new ArrayList<>();
+		address = "-1";
+		orderHistory = "-1";
 	}
 	
-	public Customer(int ID, String address, int contactNum) {
+	public Customer(int ID, String address, int contactNum, String orderHistory) {
 		this.ID = ID;
 		this.address = address;
 		this.contactNum = contactNum;
+		this.orderHistory = orderHistory;
 	}
 	
 	//Setter
@@ -42,15 +44,20 @@ public class Customer {
 	public int getContactnum() {
 		return contactNum;
 	}
-	
-	public void addOrderNo(int num) {
-		this.orderHistory.add(num);
+	public String getOrderHistory() {
+		return this.orderHistory;
 	}
 	
-	public boolean searchOrder(int num) {
-		for(int i = 0; i < orderHistory.size(); i++) {
-			if(orderHistory.get(i) == num)
+	//Adding to orderHistory and searching orders
+	public void addOrderNo(int num) {
+		this.orderHistory = this.orderHistory + "," + num;
+	}
+	public boolean searchOrder(int invoiceID) {
+		StringTokenizer tok = new StringTokenizer(orderHistory, ",");
+		while(tok.hasMoreTokens()) {
+			if(Integer.parseInt(tok.nextToken()) == invoiceID) {
 				return true;
+			}
 		}
 		return false;
 	}
