@@ -20,7 +20,7 @@ public class ReadBookStock implements ReadStockStrategy {
 			while(sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer tok = new StringTokenizer(line);
-				items.add(new BookItem(tok.nextToken(), Integer.parseInt(tok.nextToken()), Double.parseDouble(tok.nextToken()), tok.nextToken(), Integer.parseInt(tok.nextToken()), tok.nextToken(), tok.nextToken()));
+				items.add(new BookItem(tok.nextToken(), Integer.parseInt(tok.nextToken()), Double.parseDouble(tok.nextToken()), tok.nextToken(), Integer.parseInt(tok.nextToken()), tok.nextToken(), tok.nextToken(), 0));
 				System.out.println(items.get(0));
 			}
 			sc.close();

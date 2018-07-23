@@ -4,7 +4,6 @@ public class ElecItem extends Item{
 	
 	String brand;
 	String category;
-	int discount;
 	int warrantyInMonths;
 	
 	
@@ -17,10 +16,9 @@ public class ElecItem extends Item{
 	}
 	// Constructor
 	public ElecItem(String name, int barcode, double price, String brand, String category, int discount, int warranty) {
-		super(name, barcode, price);
+		super(name, barcode, price, discount);
 		this.brand = brand;
 		this.category = category;
-		this.discount = discount;
 		this.warrantyInMonths = warranty;
 	}
 	
@@ -43,9 +41,7 @@ public class ElecItem extends Item{
 	public String getCategory() {
 		return category;
 	}
-	public int getDiscount() {
-		return discount;
-	}
+
 	public int getWarranty() {
 		return warrantyInMonths;
 	}
@@ -55,9 +51,6 @@ public class ElecItem extends Item{
 	}
 	public void setCategory(String category) {
 		this.category = category;
-	}
-	public void setDiscount(int discount) {
-		this.discount = discount;
 	}
 	public void setWarranty(int warranty) {
 		this.warrantyInMonths = warranty;

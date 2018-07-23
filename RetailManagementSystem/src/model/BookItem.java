@@ -7,8 +7,8 @@ public class BookItem extends Item{
 	String publisher;
 	String copyrights;
 	
-	public BookItem(String name, int barcode, double price, String author, int isbn, String publisher, String copyrights) {
-		super(name, barcode, price);
+	public BookItem(String name, int barcode, double price, String author, int isbn, String publisher, String copyrights, int discount) {
+		super(name, barcode, price, discount);
 		this.author = author;
 		this.isbn = isbn;
 		this.publisher = publisher;

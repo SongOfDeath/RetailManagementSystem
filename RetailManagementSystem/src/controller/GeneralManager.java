@@ -12,7 +12,7 @@ public class GeneralManager {
 	private static NotificationManager notifManager;
 	private static PromotionManager promoManager;
 	private static SalesManager saleManager;
-	private static ShippingManager shippingManager;
+	private static ShippingManager shippManager;
 
 	CustomerControl custControl;
 	String salesfile;

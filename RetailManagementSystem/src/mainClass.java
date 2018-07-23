@@ -531,7 +531,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			for(int i=0; i<data.size(); i++)
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
-				myList.add(new ElecItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),Integer.parseInt(list.get(5)),Integer.parseInt(list.get(6))));
+				myList.add(new ElecItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),Integer.parseInt(list.get(5)),Integer.parseInt("0")));
 				System.out.println(data.get(i));
 			}
 		}
@@ -540,7 +540,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			for(int i=0; i<data.size(); i++)
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
-				myList.add(new BookItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),Integer.parseInt(list.get(4)),list.get(5),list.get(6)));
+				myList.add(new BookItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),Integer.parseInt(list.get(4)),list.get(5),list.get(6), Integer.parseInt("0")));
 				System.out.println(data.get(i));
 			}
 		}
@@ -549,7 +549,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			for(int i=0; i<data.size(); i++)
 			{
 				List<String> list = new ArrayList<String>(Arrays.asList(data.get(i).split("-")));
-				myList.add(new ClothItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),list.get(5),list.get(6)));
+				myList.add(new ClothItem(list.get(0),Integer.parseInt(list.get(1)),Double.parseDouble(list.get(2)),list.get(3),list.get(4),list.get(5),list.get(6), Integer.parseInt("0")));
 				System.out.println(data.get(i));
 			}
 		}

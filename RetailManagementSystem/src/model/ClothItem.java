@@ -7,24 +7,23 @@ public class ClothItem extends Item {
 	String color;
 	String size;
 	String gender;
-	int discount;
+	
 	
 	public ClothItem(String name, int barcode, double price, String brand, String category, String color,
 			String size, String gender, int discount) {
 		
-		super(name, barcode, price);
+		super(name, barcode, price, discount);
 		this.brand = brand;
 		this.category = category;
 		this.color = color;
 		this.size = size;
-		this.gender = gender;
-		this.discount = discount;
+		this.gender = gender;;
 	}
 	
 	public ClothItem(String name, int barcode, double price, String brand, String category, String color,
-			String size) {
+			String size, int discount) {
 		
-		super(name, barcode, price);
+		super(name, barcode, price, discount);
 		this.brand = brand;
 		this.category = category;
 		this.color = color;
