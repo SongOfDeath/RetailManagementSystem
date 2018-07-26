@@ -43,6 +43,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	Scene scene, electronicsHomeScene, booksHomeScene, clothesHomeScene;
 	//COMMON PAGES AND LAYOUTS
 	Scene stocksManagementScene, itemRentalScene, itemRepairScene, usedGoodsResaleScene, salesManagementScene;
+	Scene takeCustomerFeedbackScene, billingManagementScene;
 	VBox stocksManagementLayout, salesManagementLayout, itemRentalLayout, itemRepairLayout, usedGoodsResaleLayout, salesManagerLayout;
 	//BUTTONS
 	Button button, salesManagementButton, stocksManagementToolButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton, itemRentalButton;
@@ -52,6 +53,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 	Button stockSubmitButton, removeStockButton, returnToMenuButton;
 	//LAYOUTS
 	VBox layout, electronicsHomeLayout, booksHomeLayout, clothesHomeLayout;
+	VBox takeCustomerFeedbackLayout, billingManagementLayout;
 	//VBox booksStockManagementLayout;
 	
 	//TEXT FIELDS
@@ -78,6 +80,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		primaryStage.setTitle("Retail Management System");
 		
 		Label welcomeLabel = new Label("Welcome to retail management system");
+
 		//////////////////////////////////
 		/// BUTTONS///////////////////////
 		//////////////////////////////////
@@ -95,9 +98,9 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		stocksManagementToolButton = new Button("Stocks Management Tool");
 		stocksManagementToolButton.setOnAction(e -> stocksManagementToolButtonClicked());
 		takeCustomerFeedbackButton = new Button("Take Customer Feedback");
-		takeCustomerFeedbackButton.setOnAction(this);
+		takeCustomerFeedbackButton.setOnAction(e -> takeCustomerFeedbackButtonClicked());
 		billingManagementToolButton = new Button("Billing Management Tool");
-		billingManagementToolButton.setOnAction(this);
+		billingManagementToolButton.setOnAction(e -> billingManagementToolButtonClicked());
 		salesManagementToolButton = new Button("Sales Management Tool");
 		salesManagementToolButton.setOnAction(this);
 		itemRepairOrdersButton = new Button("Item Repair Order");
@@ -117,7 +120,9 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		///////////////////////
 		layout = new VBox(10);
 		layout.setPadding(new Insets(20,20,20,20));
+		
 
+		
 		//StackPane layout = new StackPane();
 		layout.getChildren().add(welcomeLabel);
 		layout.getChildren().add(usernameField);
@@ -161,7 +166,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			usedGoodsResaleTable = new TableView<>();
 			repairItemsTable = new TableView<>();
 			setTextFields(); //Set up the pages
-			////////////////////////////////////////////////////
+			
+
 			//////////////////SET TABLES////////////////////////
 			//////////////////////////////////////////
 			///////ALL ITEMS stocksTable COMMON ATTRIBUTES
@@ -174,7 +180,12 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			TableColumn<Item, Double> priceColumn = new TableColumn<>("Price");
 			priceColumn.setMinWidth(200);
 			priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-			
+			TableColumn<Item, String> rentalNameColumn = new TableColumn<>("Name");
+			rentalNameColumn.setMinWidth(200);
+			rentalNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+			TableColumn<Item, String> rentalTimeColumn = new TableColumn<>("Rental Time");
+			rentalTimeColumn.setMinWidth(200);
+			//rentalTimeColumn.setUserData("3 weeks");
 			///ALL ITEMS stocksTable COMMON ATTRIBUTES
 			///////////////////////////////////////////
 			
@@ -266,6 +277,8 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 						copyrightsColumn);
 				//SET UP stocksTable
 				//////////////////////////
+				
+				rentalItemsTable.getColumns().addAll(rentalNameColumn, rentalTimeColumn);
 			}
 			else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 			{
@@ -299,6 +312,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 						sizeColumn);
 				//SET UP stocksTable
 				//////////////////////////
+				rentalItemsTable.getColumns().addAll(rentalNameColumn, rentalTimeColumn);
 			}
 			//////////////SET TABLES/////////////
 			/////////////////////////////////////
@@ -315,7 +329,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				electronicsHomeLayout.setPadding(new Insets(20,20,20,20));
 				electronicsHomeLayout.setStyle("-fx-background-color: red");
 				
-				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, salesManagementButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
+				electronicsHomeLayout.getChildren().addAll(stocksManagementToolButton, salesManagementButton, takeCustomerFeedbackButton, billingManagementToolButton, itemRepairOrdersButton, promotionsManagementButton, usedGoodsResaleButton);
 				electronicsHomeScene = new Scene(electronicsHomeLayout, 500, 500);
 				window.setScene(electronicsHomeScene);
 				storeType = "Electronics";
@@ -337,7 +351,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 						salesManagementButton,
 						takeCustomerFeedbackButton, 
 						billingManagementToolButton, 
-						salesManagementToolButton, 
 						promotionsManagementButton, 
 						usedGoodsResaleButton, 
 						itemRentalButton);
@@ -362,7 +375,7 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 				clothesHomeLayout.setPadding(new Insets(20,20,20,20));
 				clothesHomeLayout.setStyle("-fx-background-color: green");
 				
-				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, salesManagementButton, takeCustomerFeedbackButton, billingManagementToolButton, salesManagementToolButton, promotionsManagementButton, itemRentalButton);
+				clothesHomeLayout.getChildren().addAll(stocksManagementToolButton, salesManagementButton, takeCustomerFeedbackButton, billingManagementToolButton, promotionsManagementButton, itemRentalButton);
 				clothesHomeScene = new Scene(clothesHomeLayout, 500, 500);
 				window.setScene(clothesHomeScene);
 				//storeType = "Clothes";
@@ -390,9 +403,20 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		itemRepairLayout.setPadding(new Insets(20,20,20,20));
 		usedGoodsResaleLayout = new VBox(10);
 		usedGoodsResaleLayout.setPadding(new Insets(20,20,20,20));
+		
+		Label takeCustomerFeedbackLabel = new Label("Take customer feedback, same for all shops");
+		Label billingManagementLabel = new Label("Billing management, same for all shops");
+		takeCustomerFeedbackLayout = new VBox(10);
+		takeCustomerFeedbackLayout.setPadding(new Insets(20,20,20,20));
+		takeCustomerFeedbackLayout.getChildren().addAll(takeCustomerFeedbackLabel, returnToMenuButton);
+		billingManagementLayout = new VBox(10);
+		billingManagementLayout.setPadding(new Insets(20,20,20,20));
+		billingManagementLayout.getChildren().addAll(billingManagementLabel, returnToMenuButton);
 		stockSubmitButton = new Button("Add to Stock");
 		stockSubmitButton.setOnAction(e -> addStockButtonClicked());
 		
+		takeCustomerFeedbackScene = new Scene(takeCustomerFeedbackLayout, 600, 600);
+		billingManagementScene = new Scene(billingManagementLayout, 600, 600);
 		if(genMngr.shop_mode == genMngr.ELECSHOP)
 		{
 			property0Field = new TextField("Electronic Name");
@@ -457,7 +481,6 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		else if(genMngr.shop_mode == GeneralManager.CLOTHSHOP)
 		{
 			databaseName = "clothStocks.txt";
-			
 			stocksTable.setItems(allItemsAvailable);
 			database2 = "clothRental.txt";
 		}
@@ -518,6 +541,18 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 		usedGoodsResaleSetUp=true;
 		window.setScene(usedGoodsResaleScene);
 	}
+	public void takeCustomerFeedbackButtonClicked()
+	{
+		if(!takeCustomerFeedbackLayout.getChildren().contains(returnToMenuButton))
+			takeCustomerFeedbackLayout.getChildren().add(returnToMenuButton);
+		window.setScene(takeCustomerFeedbackScene);
+	}
+	public void billingManagementToolButtonClicked()
+	{
+		if(!billingManagementLayout.getChildren().contains(returnToMenuButton))
+			billingManagementLayout.getChildren().add(returnToMenuButton);
+		window.setScene(billingManagementScene);
+	}
 	///SET UP SCENES
 	////////////////////////////////////////////
 	
@@ -560,10 +595,20 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 
 	public void rentAnItemButtonClicked()
 	{
-		String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText() + "-" + property6Field.getText();
-		
-		rentalItemsManager.addData(dataToAdd);
+		//String dataToAdd = property0Field.getText() + "-" + property1Field.getText() + "-" + property2Field.getText() + "-" + property3Field.getText() + "-" + property4Field.getText() + "-" + property5Field.getText() + "-" + property6Field.getText();
+		ObservableList<Item> itemSelected;
+		itemSelected = stocksTable.getSelectionModel().getSelectedItems();
+		for(int i=0; i<itemSelected.size(); i++)
+		{
+			String dataToAdd;
+			dataToAdd = itemSelected.get(i).returnItemData();
+			rentalItemsManager.addData(dataToAdd);
+		}
+		removeStockButtonClicked();
+		//rentalItemsManager.addData(dataToAdd);
+		//rentalItems
 		fetchFromDatabaseIntoItemList(rentalItemsManager, rentalItems);
+		rentalItemsTable.setItems(rentalItems);
 	}
 	
 	public void addStockButtonClicked()
@@ -611,6 +656,17 @@ public class mainClass extends Application implements EventHandler<ActionEvent> 
 			window.setScene(clothesHomeScene);
 		}
 	}
-	
+	public void setUpRentalTable()
+	{
+		TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
+		nameColumn.setMinWidth(200);
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		TableColumn<Item, Integer> barcodeColumn = new TableColumn<>("Barcode");
+		barcodeColumn.setMinWidth(200);
+		barcodeColumn.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+		TableColumn<Item, Double> priceColumn = new TableColumn<>("Price");
+		priceColumn.setMinWidth(200);
+		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+	}
 	
 }
